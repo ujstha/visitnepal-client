@@ -1,7 +1,7 @@
 import React from "react";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-import { UserFunction } from "../services/UserFunction";
+import { UserFunction } from "../../services/UserFunction";
 
 export default class UserAuthentication extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class UserAuthentication extends React.Component {
       password_confirmation,
       signUp,
     } = this.state;
-    
+
     let signInData = {
       identity: identity,
       password: password,
