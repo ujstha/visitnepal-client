@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 
-export default class SignIn extends React.Component {
+export default class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +19,7 @@ export default class SignIn extends React.Component {
     return (
       <div className="form-container sign-in-container">
         <form onSubmit={onSubmit}>
-          <h1>Sign in</h1>
+          <h1>Sign In</h1>
           <span>use your account</span>
           <br />
           <input

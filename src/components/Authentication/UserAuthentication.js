@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import { UserFunction } from "../../services/UserFunction";
+import "../../assets/css/registration.css";
 
-export default class UserAuthentication extends React.Component {
+export default class UserAuthentication extends Component {
   constructor(props) {
     super(props);
     this.state = {

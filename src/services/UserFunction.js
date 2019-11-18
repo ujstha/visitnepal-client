@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function UserFunction(type, userData) {
   axios
-    .post(`http://visitnepal-server.local/api/${type}`, userData)
+    .post(`${process.env.REACT_APP_BASEURL + "/" + type}`, userData)
     .then(res => {
       console.log(res);
       if (type === "login") {
@@ -11,12 +11,21 @@ export function UserFunction(type, userData) {
         } else {
           sessionStorage.setItem("token", res.data.token);
         }
-        document.location = "/pro";
+        document.location = "/dashboard";
       } else if (type === "register") {
-        document.location = "/login";
+        document.location = "/";
       }
     })
     .catch(err => {
       console.log(err.response);
     });
+}
+
+export function logOut() {
+  if (sessionStorage.token) {
+    sessionStorage.removeItem("token");
+  } else if (localStorage.token) {
+    localStorage.removeItem("token");
+  }
+  document.location = "/";
 }
