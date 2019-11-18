@@ -5,7 +5,7 @@ export default class pro extends React.Component {
   componentDidMount() {
     axios
       .get(`http://visitnepal-server.local/api/profile`, {
-        headers: { Authorization : `Bearer ${localStorage.token}`}
+        headers: { Authorization : `Bearer ${sessionStorage.token || localStorage.token}`}
       })
       .then(res => {
         console.log(res);

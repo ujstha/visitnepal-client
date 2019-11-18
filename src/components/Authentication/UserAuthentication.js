@@ -21,7 +21,9 @@ export default class UserAuthentication extends React.Component {
     });
   };
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   };
   authenticate = e => {
     e.preventDefault();
@@ -70,7 +72,6 @@ export default class UserAuthentication extends React.Component {
           password="password"
           onChange={this.onChange}
         />
-
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">

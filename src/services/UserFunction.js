@@ -6,7 +6,11 @@ export function UserFunction(type, userData) {
     .then(res => {
       console.log(res);
       if (type === "login") {
-        sessionStorage.setItem("token", res.data.token);
+        if (JSON.parse(sessionStorage.rememberme) === true) {
+          localStorage.setItem("token", res.data.token);
+        } else {
+          sessionStorage.setItem("token", res.data.token);
+        }
         document.location = "/pro";
       } else if (type === "register") {
         document.location = "/login";

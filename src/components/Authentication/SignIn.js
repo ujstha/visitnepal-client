@@ -1,7 +1,20 @@
 import React from "react";
+import { FormControlLabel, Checkbox } from "@material-ui/core";
 
 export default class SignIn extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rememberme: false,
+    };
+  }
+  handleChange = () => {
+    this.setState({
+      rememberme: !this.state.rememberme,
+    });
+  };
   render() {
+    sessionStorage.setItem("rememberme", this.state.rememberme);
     const { identity, password, onChange, onSubmit } = this.props;
     return (
       <div className="form-container sign-in-container">
@@ -21,7 +34,17 @@ export default class SignIn extends React.Component {
             onChange={onChange}
             placeholder="Password"
           />
-          <a href="#">Forgot your password?</a>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.rememberme}
+                onChange={this.handleChange}
+                value="rememberme"
+              />
+            }
+            label="Remember Me"
+          />
+          <a href={"!"}>Forgot your password?</a>
           <button type="submit">Sign In</button>
         </form>
       </div>

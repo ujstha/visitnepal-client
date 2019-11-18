@@ -40,6 +40,7 @@ export default class SignUp extends React.Component {
             onChange={onChange}
             placeholder="Confirm Password"
           />
+          <br />
           <button type="submit">Sign Up</button>
         </form>
       </div>
