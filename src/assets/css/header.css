@@ -1,0 +1,40 @@
+.navbar {
+  background-color: #283593;
+}
+.nav-link {
+  color: rgba(255, 255, 255, 0.7);
+}
+.dropdown-menu {
+  padding: 0;
+  margin-right: 1rem;
+}
+.dropdown-divider {
+  margin: 0;
+}
+.dropdown-item {
+  padding: 0.5rem;
+}
+.dropdown-item:active.danger-text {
+  background-color: #dc3545;
+  color: white;
+}
+.danger-text,
+.danger-text:hover {
+  color: #dc3545;
+}
+.navbar .trigger-button {
+  border-radius: 0;
+  display: none;
+}
+.trigger-button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.navbar .MuiIconButton-root {
+  color: white !important;
+  cursor: pointer;
+}
+@media only screen and (max-width: 767px) {
+  .navbar .trigger-button {
+    display: block;
+  }
+}

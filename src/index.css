@@ -3,8 +3,21 @@ body {
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #f6f5f7;
 }
 
 code {
   font-family: "Montserrat", monospace;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+.error-page {
+  height: calc(90vh - 90px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

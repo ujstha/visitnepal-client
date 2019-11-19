@@ -56,40 +56,42 @@ export default class UserAuthentication extends Component {
   render() {
     const { signUp } = this.state;
     return (
-      <div
-        className={`register-container ${signUp ? "right-panel-active" : ""}`}
-      >
-        <SignUp
-          onSubmit={this.authenticate}
-          username="username"
-          email="email"
-          password="password"
-          password_confirmation="password_confirmation"
-          onChange={this.onChange}
-        />
-        <SignIn
-          onSubmit={this.authenticate}
-          identity="identity"
-          password="password"
-          onChange={this.onChange}
-        />
-        <div className="overlay-container">
-          <div className="overlay">
-            <div className="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
-              <p>
-                To keep connected with us please login with your personal info
-              </p>
-              <button className="ghost" id="signIn" onClick={this.showForm}>
-                Sign In
-              </button>
-            </div>
-            <div className="overlay-panel overlay-right">
-              <h1>Hello, Friend!</h1>
-              <p>Enter your personal details and start journey with us</p>
-              <button className="ghost" id="signUp" onClick={this.showForm}>
-                Sign Up
-              </button>
+      <div id="register-container">
+        <div
+          className={`register-container ${signUp ? "right-panel-active" : ""}`}
+        >
+          <SignUp
+            onSubmit={this.authenticate}
+            username="username"
+            email="email"
+            password="password"
+            password_confirmation="password_confirmation"
+            onChange={this.onChange}
+          />
+          <SignIn
+            onSubmit={this.authenticate}
+            identity="identity"
+            password="password"
+            onChange={this.onChange}
+          />
+          <div className="overlay-container">
+            <div className="overlay">
+              <div className="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>
+                  To keep connected with us please login with your personal info
+                </p>
+                <button className="ghost" id="signIn" onClick={this.showForm}>
+                  Sign In
+                </button>
+              </div>
+              <div className="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button className="ghost" id="signUp" onClick={this.showForm}>
+                  Sign Up
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard";
 export default (
   <Switch>
     <Route exact path="/" component={UserAuthentication}></Route>
+    <Route exact path="/auth" component={UserAuthentication}></Route>
     <Route exact path="/dashboard" component={Dashboard}></Route>
     <Route exact path="*" component={ErrorPage}></Route>
   </Switch>

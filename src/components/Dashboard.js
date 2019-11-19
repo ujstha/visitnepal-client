@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { logOut } from "../services/UserFunction";
+import { Loader } from "../services/Loader";
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDetails: null,
-      userImages: null,
+      userDetails: [],
+      userImages: [],
+      isLoading: true,
     };
   }
   componentDidMount() {
@@ -33,8 +35,14 @@ export default class Dashboard extends Component {
             axios.spread((userDetails, userImages) => {
               console.log(userDetails);
               console.log(userImages);
+              this.setState({
+                userImages: userImages.data,
+                userDetails: userDetails.data,
+                isLoading: false,
+              });
             })
           );
+
         // if(res.data.user.isAdmin === 0) {
         //   document.location="/admin"
         // }
@@ -47,9 +55,19 @@ export default class Dashboard extends Component {
     if (!sessionStorage.token && !localStorage.token) {
       return <Redirect to="/" />;
     }
+    const { userImages, userDetails, isLoading } = this.state;
     return (
-      <div className="App">
-        <button onClick={() => logOut()}>Logout</button>
+      <div style={{ marginTop: 80 }}>
+        {isLoading ? (
+          Loader(isLoading)
+        ) : (
+          <div>
+              <h1>My Profile</h1>
+            {userImages.map(a => a.id)}
+            <br />
+            <button onClick={() => logOut()}>Logout</button>
+          </div>
+        )}
       </div>
     );
   }
