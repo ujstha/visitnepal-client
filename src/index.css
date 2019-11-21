@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #f6f5f7;
@@ -11,7 +11,8 @@ code {
 }
 
 .container {
-  margin-top: 50px;
+  padding: 85px 0 30px 0;
+  position: relative;
 }
 
 .error-page {
@@ -20,4 +21,8 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.alert {
+  border-radius: 0;
 }

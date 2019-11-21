@@ -12,7 +12,6 @@ import {
   DropdownItem,
 } from "reactstrap";
 import { Button } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { IconButton } from "@material-ui/core";

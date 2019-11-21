@@ -1,10 +1,9 @@
 import axios from "axios";
 
 export function UserFunction(type, userData) {
-  axios
+  return axios
     .post(`${process.env.REACT_APP_BASEURL + "/" + type}`, userData)
     .then(res => {
-      console.log(res);
       if (type === "login") {
         if (JSON.parse(sessionStorage.rememberme) === true) {
           localStorage.setItem("token", res.data.token);
@@ -13,11 +12,8 @@ export function UserFunction(type, userData) {
         }
         document.location = "/dashboard";
       } else if (type === "register") {
-        document.location = "/";
+        return res;
       }
-    })
-    .catch(err => {
-      console.log(err.response);
     });
 }
 

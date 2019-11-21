@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { logOut } from "../services/UserFunction";
 import { Loader } from "../services/Loader";
+import { Helmet } from "react-helmet";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class Dashboard extends Component {
       userDetails: [],
       userImages: [],
       isLoading: true,
+      userName: null,
     };
   }
   componentDidMount() {
@@ -22,6 +24,9 @@ export default class Dashboard extends Component {
       })
       .then(res => {
         console.log(res);
+        this.setState({
+          userName: res.data.user.username,
+        });
         axios
           .all([
             axios.get(
@@ -55,17 +60,21 @@ export default class Dashboard extends Component {
     if (!sessionStorage.token && !localStorage.token) {
       return <Redirect to="/" />;
     }
-    const { userImages, userDetails, isLoading } = this.state;
+    const { userImages, userDetails, userName, isLoading } = this.state;
     return (
-      <div style={{ marginTop: 80 }}>
+      <div>
         {isLoading ? (
           Loader(isLoading)
         ) : (
           <div>
-              <h1>My Profile</h1>
+            <Helmet>
+              <title>{`Dashboard | ${userName}`}</title>
+            </Helmet>
+            <h1>My Profile</h1>
             {userImages.map(a => a.id)}
             <br />
             <button onClick={() => logOut()}>Logout</button>
+            {userDetails.map(a => a.id)}
           </div>
         )}
       </div>

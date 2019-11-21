@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { FormControlLabel, Checkbox } from "@material-ui/core";
+import { FormControlLabel, Checkbox, Button } from "@material-ui/core";
+import { Form, Icon, Input } from "antd";
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -14,39 +15,67 @@ export default class SignIn extends Component {
     });
   };
   render() {
-    sessionStorage.setItem("rememberme", this.state.rememberme);
-    const { identity, password, onChange, onSubmit } = this.props;
+    const { rememberme } = this.state;
+    const {
+      identity,
+      password,
+      onChange,
+      onSubmit,
+      className,
+      btnDisabled,
+    } = this.props;
+    sessionStorage.setItem("rememberme", rememberme);
+
     return (
-      <div className="form-container sign-in-container">
-        <form onSubmit={onSubmit}>
-          <h1>Sign In</h1>
+      <div className={className}>
+        <div className="text-center mb-3">
+          <h2 className="m-0">Sign In</h2>
           <span>use your account</span>
-          <br />
-          <input
-            type="text"
-            name={identity}
-            onChange={onChange}
-            placeholder="Email or Username"
-          />
-          <input
-            type="password"
-            name={password}
-            onChange={onChange}
-            placeholder="Password"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.state.rememberme}
-                onChange={this.handleChange}
-                value="rememberme"
-              />
-            }
-            label="Remember Me"
-          />
-          <a href={"!"}>Forgot your password?</a>
-          <button type="submit">Sign In</button>
-        </form>
+        </div>
+        <Form onSubmit={onSubmit}>
+          <Form.Item>
+            <Input
+              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+              placeholder="Email or Username *"
+              type="text"
+              name={identity}
+              onChange={onChange}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Input.Password
+              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+              type="password"
+              name={password}
+              onChange={onChange}
+              placeholder="Password *"
+              style={{ borderRadius: 0 }}
+              visibilityToggle={true}
+            />
+          </Form.Item>
+          <Form.Item>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={rememberme}
+                  onChange={this.handleChange}
+                  value="rememberme"
+                />
+              }
+              label="Remember Me"
+            />
+            <Button
+              type="submit"
+              color="secondary"
+              fullWidth
+              variant="contained"
+              style={{ borderRadius: 0 }}
+              disabled={btnDisabled}
+            >
+              Sign In
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     );
   }
