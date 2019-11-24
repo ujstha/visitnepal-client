@@ -4,15 +4,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #f6f5f7;
+  padding-top: 68px;
+}
+@media screen and (max-width: 767px) {
+  body {
+    padding-top: 63px;
+  }
+  .carousel-container .anticon-right,
+  .carousel-container .anticon-left {
+    display: none !important;
+  }
 }
 
 code {
   font-family: "Montserrat", monospace;
-}
-
-.container {
-  padding: 85px 0 30px 0;
-  position: relative;
 }
 
 .error-page {

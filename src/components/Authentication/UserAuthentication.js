@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import { Helmet } from "react-helmet";
-import { UserFunction } from "../../services/UserFunction";
-import "../../assets/css/registration.css";
-import { Toast } from "../../services/Toast";
+import { UserFunction, Toast } from "../../services";
 import { Paper, CssBaseline } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import "../../assets/css/registration.css";
 
 const styles = theme => ({
   main: {
@@ -42,7 +41,7 @@ export default withStyles(styles)(
         password_confirmation: "",
         showAlert: false,
         errorMessage: "",
-        alertColor: ""
+        alertColor: "",
       };
     }
     showForm = () => {
@@ -80,28 +79,30 @@ export default withStyles(styles)(
       UserFunction(
         signUp ? "register" : "login",
         signUp ? signUpData : signInData
-      ).then(res => {
-        if(signUp) {
-          return this.setState({
-            showAlert: true,
-            errorMessage: res.data.message,
-            alertColor: "success"
-          });
-        }
-      }).catch(err => {
-        if (!signUp) {
-          return this.setState({
-            showAlert: true,
-            errorMessage: err.response.data.error,
-          });
-        } else {
-          console.log(err.response);
-          this.setState({
-            showAlert: true,
-            errorMessage: err.response.data.message,
-          });
-        }
-      });
+      )
+        .then(res => {
+          if (signUp) {
+            return this.setState({
+              showAlert: true,
+              errorMessage: res.data.message,
+              alertColor: "success",
+            });
+          }
+        })
+        .catch(err => {
+          if (!signUp) {
+            return this.setState({
+              showAlert: true,
+              errorMessage: err.response.data.error,
+            });
+          } else {
+            console.log(err.response);
+            this.setState({
+              showAlert: true,
+              errorMessage: err.response.data.message,
+            });
+          }
+        });
     };
 
     render() {
@@ -129,9 +130,14 @@ export default withStyles(styles)(
               style={{ borderRadius: 0 }}
               className={classes.paper}
             >
-              {Toast(alertColor === "" ? "danger" : alertColor, errorMessage, showAlert, () => {
-                this.setState({ showAlert: false });
-              })}
+              {Toast(
+                alertColor === "" ? "danger" : alertColor,
+                errorMessage,
+                showAlert,
+                () => {
+                  this.setState({ showAlert: false });
+                }
+              )}
               <div className="register-container">
                 {signUp ? (
                   <SignUp

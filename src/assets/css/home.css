@@ -1,0 +1,16 @@
+.carousel-container {
+  position: relative;
+}
+.carousel-container .anticon {
+  position: absolute;
+  top: 45%;
+  z-index: 9;
+  font-size: 1.8rem;
+  color: gainsboro !important;
+}
+.carousel-container .anticon-left {
+  left: 2%;
+}
+.carousel-container .anticon-right {
+  right: 2%;
+}

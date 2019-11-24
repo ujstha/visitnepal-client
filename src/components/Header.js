@@ -11,13 +11,12 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { IconButton } from "@material-ui/core";
-import { logOut } from "../services/UserFunction";
-import "../assets/css/header.css";
+import { logOut } from "../services";
 import Sidebar from "./Sidebar";
+import "../assets/css/header.css";
 import "../assets/css/sidebar.css";
 
 export default class Header extends Component {

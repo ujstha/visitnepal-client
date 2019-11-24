@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { logOut } from "../services/UserFunction";
-import { Loader } from "../services/Loader";
+import { logOut, Loader } from "../services";
 import { Helmet } from "react-helmet";
 
 export default class Dashboard extends Component {
