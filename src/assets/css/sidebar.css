@@ -59,6 +59,10 @@
   color: white !important;
   cursor: pointer;
 }
+a.danger-text,
+a.danger-text:hover {
+  color: #dc3545;
+}
 
 @media only screen and (max-width: 767px) {
   .navbar .trigger-button {

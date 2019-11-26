@@ -23,5 +23,6 @@ export function logOut() {
   } else if (localStorage.token) {
     localStorage.removeItem("token");
   }
+  localStorage.setItem("isAdmin", null);
   document.location = "/";
 }

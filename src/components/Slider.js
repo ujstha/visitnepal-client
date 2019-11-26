@@ -20,12 +20,14 @@ export default class Slider extends Component {
           {isLoading
             ? CircularLoader(isLoading)
             : images.map((image, index) => (
-                <div key={index} className="slider-image">
-                  <img
-                    src={`${process.env.REACT_APP_IMAGEURL}/slider_images/` + image.slides}
-                    alt={image.caption}
-                  />
-                </div>
+                <img
+                  src={
+                    `${process.env.REACT_APP_IMAGEURL}/slider_images/` +
+                    image.slides
+                  }
+                  alt={image.caption}
+                  key={index}
+                />
               ))}
         </Carousel>
         <Icon type="right" onClick={next} />

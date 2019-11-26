@@ -17,7 +17,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { logOut } from "../services";
 import Sidebar from "./Sidebar";
 import "../assets/css/header.css";
-import "../assets/css/sidebar.css";
 
 export default class Header extends Component {
   constructor(props) {

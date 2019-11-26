@@ -26,7 +26,6 @@ export default class SignUp extends Component {
       btnDisabled,
       passMatch,
       passMatchMsg,
-      checkUser,
     } = this.props;
     const { agreement } = this.state;
     sessionStorage.setItem("agreement", agreement);
@@ -44,7 +43,7 @@ export default class SignUp extends Component {
               placeholder="Username *"
               type="text"
               name={username}
-              onChange={checkUser}
+              onChange={onChange}
               required={true}
             />
           </Form.Item>
@@ -54,7 +53,7 @@ export default class SignUp extends Component {
               placeholder="Email *"
               type="email"
               name={email}
-              onChange={checkUser}
+              onChange={onChange}
               required={true}
             />
           </Form.Item>
