@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Helmet } from "react-helmet";
+import "../assets/css/error.css";
 
 export default class ErrorPage extends Component {
   render() {
@@ -8,8 +9,24 @@ export default class ErrorPage extends Component {
         <Helmet>
           <title>Error Page | 404 Not Found</title>
         </Helmet>
-        <h1>Error Page</h1>
-        <h5>404 Page Not Found</h5>
+        <svg viewBox="0 0 960 300">
+          <symbol id="s-text">
+            <text text-anchor="middle" x="50%" y="80%">
+              404
+            </text>
+          </symbol>
+          <g className="g-ants">
+            <use xlinkHref="#s-text" className="text"></use>
+            <use xlinkHref="#s-text" className="text"></use>
+            <use xlinkHref="#s-text" className="text"></use>
+            <use xlinkHref="#s-text" className="text"></use>
+            <use xlinkHref="#s-text" className="text"></use>
+          </g>
+        </svg>
+        <div className="content">
+          <h1>Page Not Found</h1>
+          <a href="/">Back to Home</a>
+        </div>
       </div>
     );
   }

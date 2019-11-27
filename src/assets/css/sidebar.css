@@ -38,7 +38,7 @@
   padding-left: 0;
 }
 
-.sidebar nav ul li a {
+.sidebar nav ul li .menu-item {
   padding: 10px;
   font-size: 1.1em;
   display: block;
@@ -46,22 +46,18 @@
   color: black;
   text-transform: uppercase;
 }
-.sidebar nav ul li a:hover {
+.sidebar nav ul li .menu-item:hover {
   color: whitesmoke;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.sidebar nav ul li.active > a {
+.sidebar nav ul li.active > .menu-item {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .navbar .MuiIconButton-root {
   color: white !important;
   cursor: pointer;
-}
-a.danger-text,
-a.danger-text:hover {
-  color: #dc3545;
 }
 
 @media only screen and (max-width: 767px) {

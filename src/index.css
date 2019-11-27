@@ -4,12 +4,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #f6f5f7;
-  padding-top: 68px;
+  /* padding-top: 68px; */
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Raleway", sans-serif;
 }
 @media screen and (max-width: 767px) {
-  body {
+  /* body {
     padding-top: 63px;
-  }
+  } */
   .carousel-container .anticon-right,
   .carousel-container .anticon-left {
     display: none !important;
@@ -18,14 +25,6 @@ body {
 
 code {
   font-family: "Montserrat", monospace;
-}
-
-.error-page {
-  height: calc(90vh - 90px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .alert {

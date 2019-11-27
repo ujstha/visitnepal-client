@@ -13,17 +13,42 @@ export default class Sidebar extends Component {
             <CloseIcon />
           </IconButton>
         </div>
-        <ul>
-          <li>
-            <a href="/dashboard">Dashboard</a>
-          </li>
-          <li>
-            <a href="/auth">Register/Login</a>
-          </li>
-          <li>
-            <a onClick={() => logOut()} href="javascript" style={{color: "#dc3545"}}><i className="fa fa-sign-out-alt"></i> &nbsp;Logout</a>
-          </li>
-        </ul>
+        {!localStorage.token && !sessionStorage.token ? (
+          <ul>
+            <li>
+              <a href="/" className="menu-item">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="/auth" className="menu-item">
+                Register/Login
+              </a>
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li>
+              <a href="/" className="menu-item">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="/dashboard" className="menu-item">
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <span
+                onClick={() => logOut()}
+                style={{ color: "#dc3545" }}
+                className="menu-item"
+              >
+                <i className="fa fa-sign-out-alt"></i> &nbsp;Logout
+              </span>
+            </li>
+          </ul>
+        )}
       </nav>
     );
   }
