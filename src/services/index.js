@@ -7,6 +7,7 @@ import {
   GetUserDetails,
   GetUserImages,
 } from "./UserData";
+import { GetCities, GetCategories, GetCitiesImages } from "./CitiesData";
 
 export {
   logOut,
@@ -18,4 +19,7 @@ export {
   GetUserRole,
   GetUserDetails,
   GetUserImages,
+  GetCities,
+  GetCategories,
+  GetCitiesImages,
 };

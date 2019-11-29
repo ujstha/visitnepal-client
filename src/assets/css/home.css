@@ -14,3 +14,36 @@
 .carousel-container .anticon-right {
   right: 2%;
 }
+.home-page .MuiCardContent-root {
+  position: relative;
+  padding: 0 !important;
+  overflow: hidden;
+  cursor: pointer;
+}
+.home-page .MuiCardContent-root:hover img.MuiCardMedia-img {
+  transform: scale(1.1);
+  transition: transform 0.8s ease-in-out;
+}
+.home-page .card-overlay {
+  position: absolute;
+  bottom: -35px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: whitesmoke;
+  text-transform: capitalize;
+}
+.home-page .card-overlay h4 {
+  margin: 0 !important;
+  color: whitesmoke;
+}
+.home-page .MuiCardContent-root:hover .card-overlay {
+  bottom: 0;
+  transition: bottom 0.5s ease-in-out;
+}
+.home-page .container-fluid h2 {
+  margin: 0;
+  text-shadow: 0 0 4px black;
+}

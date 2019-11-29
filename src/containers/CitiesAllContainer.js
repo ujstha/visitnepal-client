@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Home from "../components/Home";
+import CitiesAll from "../components/CitiesAll";
 import { GetCities, GetCategories, GetCitiesImages } from "../services";
 
-export default class HomeContainer extends Component {
+export default class CitiesAllContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +38,7 @@ export default class HomeContainer extends Component {
   render() {
     const { isLoading, cities, cityCategories, cityImages } = this.state;
     return (
-      <Home
+      <CitiesAll
         isLoading={isLoading}
         cityImages={cityImages}
         cities={cities}

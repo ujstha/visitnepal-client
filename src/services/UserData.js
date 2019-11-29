@@ -15,12 +15,7 @@ export function GetUser() {
 }
 
 export function GetUserRole() {
-  return axios
-    .get(`${API}/profile`, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.token || localStorage.token}`,
-      },
-    })
+  return GetUser()
     .then(user => {
       if (sessionStorage.token || localStorage.token) {
         const userRole = user.data.user.isAdmin;
@@ -29,7 +24,7 @@ export function GetUserRole() {
         } else if (userRole === 1) {
           return (localStorage.isAdmin = true);
         }
-      } 
+      }
       if (
         JSON.stringify(sessionStorage.token) === "" &&
         JSON.stringify(localStorage.token) === ""

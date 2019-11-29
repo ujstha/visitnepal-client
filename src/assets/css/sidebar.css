@@ -54,14 +54,3 @@
 .sidebar nav ul li.active > .menu-item {
   background-color: rgba(0, 0, 0, 0.5);
 }
-
-.navbar .MuiIconButton-root {
-  color: white !important;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 767px) {
-  .navbar .trigger-button {
-    display: block;
-  }
-}

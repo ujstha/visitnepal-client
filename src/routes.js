@@ -7,6 +7,8 @@ import HomeContainer from "./containers/HomeContainer";
 import DashboardContainer from "./containers/DashboardContainer";
 import { GetUserRole } from "./services";
 import AdminDashboard from "./components/admin/AdminDashboard";
+import CitiesAllContainer from "./containers/CitiesAllContainer";
+import CityDetails from "./components/CityDetails";
 
 GetUserRole().then(res => {
   return res;
@@ -20,6 +22,8 @@ JSON.parse(localStorage.isAdmin) === null ? (
     <Route exact path="/auth" component={UserAuthentication}></Route>
     <Route exact path="/events" component={Event}></Route>
     <Route exact path="/admin/dashboard" component={AdminDashboard}></Route>
+    <Route exact path="/cities" component={CitiesAllContainer}></Route>
+    <Route exact path="/city/:id" component={CityDetails}></Route>
     <Route exact path="*" component={ErrorPage}></Route>
   </Switch>
 ) : JSON.parse(localStorage.isAdmin) === true ? (

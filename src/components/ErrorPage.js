@@ -11,7 +11,7 @@ export default class ErrorPage extends Component {
         </Helmet>
         <svg viewBox="0 0 960 300">
           <symbol id="s-text">
-            <text text-anchor="middle" x="50%" y="80%">
+            <text textAnchor="middle" x="50%" y="80%">
               404
             </text>
           </symbol>

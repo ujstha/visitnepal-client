@@ -2,29 +2,54 @@ import React, { Component } from "react";
 import { Loader } from "../../services";
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
+import axios from "axios";
+import "../../assets/css/adminDashboard.css";
 
 export default class AdminDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showSidebar: false,
+      showDropdown: false,
+      usersCount: "",
+      citiesCount: "",
     };
+  }
+  componentDidMount() {
+    axios
+      .all([
+        axios.get(`${process.env.REACT_APP_BASEURL}/cities/count`),
+        axios.get(`${process.env.REACT_APP_BASEURL}/users/count`),
+      ])
+      .then(
+        axios.spread((citiesRes, usersRes) => {
+          this.setState({
+            citiesCount: citiesRes.data,
+            usersCount: usersRes.data,
+          });
+        })
+      );
   }
   toggleNav = () => {
     this.setState({
       showSidebar: !this.state.showSidebar,
     });
   };
+  toggleDropDown = () => {
+      this.setState({
+          showDropdown: !this.state.showDropdown
+      })
+  }
   render() {
     const { isLoading } = this.props;
-    const { showSidebar } = this.state;
+    const { showSidebar, showDropdown, citiesCount, usersCount } = this.state;
     return (
       <div>
         {isLoading ? (
           Loader(isLoading)
         ) : (
-          <div className="home-page">
-            <AdminHeader toggleNav={this.toggleNav} />
+          <div className="admin-dashboard">
+            <AdminHeader toggleNav={this.toggleNav} toggleDropDown={this.toggleDropDown} showDropdown={showDropdown} />
             <AdminSidebar showSidebar={showSidebar} />
 
             <div
@@ -34,7 +59,7 @@ export default class AdminDashboard extends Component {
               id="myOverlay"
             ></div>
 
-            <div className="w3-main" style={{ marginLeft: 300, marginTop: 43 }}>
+            <div className="w3-main" style={{ marginLeft: 300 }}>
               <header className="w3-container" style={{ paddingTop: 22 }}>
                 <h5>
                   <b>
@@ -69,15 +94,15 @@ export default class AdminDashboard extends Component {
                   </div>
                 </div>
                 <div className="w3-quarter">
-                  <div className="w3-container w3-teal w3-padding-16">
+                  <div className="w3-container w3-teal w3-padding-16 text-light">
                     <div className="w3-left">
-                      <i className="fa fa-share-alt w3-xxxlarge"></i>
+                      <i className="fa fa-landmark w3-xxxlarge"></i>
                     </div>
                     <div className="w3-right">
-                      <h3>23</h3>
+                      <h3>{citiesCount}</h3>
                     </div>
                     <div className="w3-clear"></div>
-                    <h4>Shares</h4>
+                    <h4>Locations</h4>
                   </div>
                 </div>
                 <div className="w3-quarter">
@@ -86,7 +111,7 @@ export default class AdminDashboard extends Component {
                       <i className="fa fa-users w3-xxxlarge"></i>
                     </div>
                     <div className="w3-right">
-                      <h3>50</h3>
+                      <h3>{usersCount}</h3>
                     </div>
                     <div className="w3-clear"></div>
                     <h4>Users</h4>
