@@ -4,8 +4,6 @@ import {
   Navbar,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -13,14 +11,13 @@ import {
 } from "reactstrap";
 import { Button, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import { logOut } from "../../services";
 import "../../assets/css/header.css";
 
 export default class Header extends Component {
   render() {
     const { toggleNav } = this.props;
-    const auth = localStorage.token || sessionStorage.token;
+    // const auth = localStorage.token || sessionStorage.token;
     return (
       <div>
         <Navbar dark fixed="top" expand="md">

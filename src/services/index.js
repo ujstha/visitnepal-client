@@ -7,7 +7,14 @@ import {
   GetUserDetails,
   GetUserImages,
 } from "./UserData";
-import { GetCities, GetCategories, GetCitiesImages } from "./CitiesData";
+import {
+  GetCities,
+  GetCategories,
+  GetCitiesImages,
+  GetCityById,
+  GetCategoryByCityId,
+  GetImageByCityId,
+} from "./CitiesData";
 
 export {
   logOut,
@@ -22,4 +29,7 @@ export {
   GetCities,
   GetCategories,
   GetCitiesImages,
+  GetCityById,
+  GetCategoryByCityId,
+  GetImageByCityId,
 };

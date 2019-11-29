@@ -276,6 +276,7 @@ export default class AdminDashboard extends Component {
                       src="/w3images/avatar2.png"
                       className="w3-left w3-circle w3-margin-right"
                       style={{ width: 35 }}
+                      alt="images"
                     />
                     <span className="w3-xlarge">Mike</span>
                     <br />
@@ -285,6 +286,7 @@ export default class AdminDashboard extends Component {
                       src="/w3images/avatar5.png"
                       className="w3-left w3-circle w3-margin-right"
                       style={{ width: 35 }}
+                      alt="images"
                     />
                     <span className="w3-xlarge">Jill</span>
                     <br />
@@ -294,6 +296,7 @@ export default class AdminDashboard extends Component {
                       src="/w3images/avatar6.png"
                       className="w3-left w3-circle w3-margin-right"
                       style={{ width: 35 }}
+                      alt="images"
                     />
                     <span className="w3-xlarge">Jane</span>
                     <br />
@@ -310,6 +313,7 @@ export default class AdminDashboard extends Component {
                       className="w3-circle"
                       src="/w3images/avatar3.png"
                       style={{ width: 96, height: 96 }}
+                      alt="images"
                     />
                   </div>
                   <div className="w3-col m10 w3-container">
@@ -335,6 +339,7 @@ export default class AdminDashboard extends Component {
                       className="w3-circle"
                       src="/w3images/avatar1.png"
                       style={{ width: 96, height: 96 }}
+                      alt="images"
                     />
                   </div>
                   <div className="w3-col m10 w3-container">
@@ -386,6 +391,7 @@ export default class AdminDashboard extends Component {
                   <a
                     href="https://www.w3schools.com/w3css/default.asp"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     w3.css
                   </a>

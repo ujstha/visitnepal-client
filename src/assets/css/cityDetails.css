@@ -1,0 +1,19 @@
+.city-bg {
+  height: 40rem;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 1024px) {
+  .city-bg {
+    height: 30rem;
+  }
+}
+@media screen and (max-width: 767px) {
+    .city-bg {
+      height: 15rem;
+    }
+  }
+
+
