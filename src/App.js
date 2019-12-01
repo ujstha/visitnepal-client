@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 const theme = createMuiTheme({
   typography: {
     // Use the system font instead of the default Roboto font.
-    fontFamily: ["Montserrat", "sans-serif"].join(","),
+    fontFamily: ["Raleway", "Montserrat", "sans-serif"].join(","),
   },
 });
 
@@ -25,9 +25,11 @@ export default class App extends React.Component {
             <Slide />
           </Router>
         )} */}
-        <HeaderContainer />
-        <Router>{routes}</Router>
-        <Footer />
+        <Router>
+          <HeaderContainer />
+          {routes}
+          <Footer />
+        </Router>
       </MuiThemeProvider>
     );
   }

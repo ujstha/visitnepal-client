@@ -37,3 +37,19 @@ export function GetImageByCityId(id) {
     return image.data;
   });
 }
+export function GetRatingByCityId(id) {
+  return axios.get(`${API}/ratings/with_city_id=${id}`).then(rating => {
+    return rating.data;
+  });
+}
+export function GetAvgRatingByCityId(id) {
+  return axios.get(`${API}/ratings/avg/with_city_id=${id}`).then(rating => {
+    return rating.data;
+  });
+}
+
+export function GetCommentByCityId(id) {
+  return axios.get(`${API}/comments/with_city_id=${id}`).then(comment => {
+    return comment.data;
+  });
+}

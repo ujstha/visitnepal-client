@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardActionArea, CardMedia, Button } from "@material-ui/core";
+import { Card, CardContent, CardMedia, Button } from "@material-ui/core";
 
 export default class Category extends Component {
   render() {
@@ -7,21 +7,21 @@ export default class Category extends Component {
     return (
       <>
         {cityCategories.length !== 0 && (
-          <div className="mt-2">
+          <div className="mt-5">
             <h2 className="text-center">What to see in Nepal</h2>
             <div className="row mt-3">
               {cityCategories.map((category, index) => {
                 return (
                   <div className="col-md-4 mt-3" key={index}>
                     <Card style={{ borderRadius: 0 }} elevation={20}>
-                      <CardActionArea>
+                      <CardContent>
                         <CardMedia
                           component="img"
                           alt={category.category_name}
                           className={className}
                           height="250px"
                           image={
-                            `${process.env.REACT_APP_IMAGEURL}/cover_images/` +
+                            `${process.env.REACT_APP_IMAGEURL}/category_images/` +
                             category.category_image
                           }
                           title={category.category_name}
@@ -38,7 +38,7 @@ export default class Category extends Component {
                             Read More
                           </Button>
                         </div>
-                      </CardActionArea>
+                      </CardContent>
                     </Card>
                   </div>
                 );

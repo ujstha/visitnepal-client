@@ -14,6 +14,9 @@ import {
   GetCityById,
   GetCategoryByCityId,
   GetImageByCityId,
+  GetRatingByCityId,
+  GetAvgRatingByCityId,
+  GetCommentByCityId,
 } from "./CitiesData";
 
 export {
@@ -32,4 +35,7 @@ export {
   GetCityById,
   GetCategoryByCityId,
   GetImageByCityId,
+  GetRatingByCityId,
+  GetAvgRatingByCityId,
+  GetCommentByCityId,
 };

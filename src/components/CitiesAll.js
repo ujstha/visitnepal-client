@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardMedia, Button } from "@material-ui/core";
+import { Helmet } from "react-helmet";
 import "../assets/css/home.css";
 
 const card = (cityImages, city, className, height) => (
@@ -41,21 +43,28 @@ export default class CitiesAll extends Component {
     const { cities, cityImages, className } = this.props;
     return (
       <>
-        {cities.length !== 0 ? (
+        <Helmet>
+          <title>Cities - Places to visit in Nepal | VisitNepal</title>
+        </Helmet>
+        {cities && cities.length !== 0 ? (
           <div className="pt-4 home-page container-fluid">
             <h1 className="text-center">Places to visit in Nepal</h1>
             <div className="row">
               {cities.map((city, index) => {
                 return (
                   <div className="col-md-6 col-lg-4 col-xl-4 mt-3" key={index}>
-                    {card(cityImages, city, className, "250px")}
+                    <Link to={`/city/${city.id}`}>
+                      {card(cityImages, city, className, "250px")}
+                    </Link>
                   </div>
                 );
               })}
             </div>
           </div>
         ) : (
-          <h1 className="text-center mt-4">Oops.... Looks like city's list is empty</h1>
+          <h1 className="text-center mt-4">
+            Oops.... Looks like city's list is empty.
+          </h1>
         )}
       </>
     );

@@ -1,11 +1,12 @@
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif !important;
+  font-family: "Raleway", "Montserrat", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #f6f5f7;
   padding-top: 48px;
   font-size: 100%;
+  overflow-x: hidden;
 }
 h1,
 h2,
@@ -28,4 +29,7 @@ code {
 }
 .alert {
   border-radius: 0;
+}
+.MuiButton-root {
+  border-radius: 0 !important;
 }

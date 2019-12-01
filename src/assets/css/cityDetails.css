@@ -1,19 +1,77 @@
 .city-bg {
   height: 40rem;
   width: 100%;
+  position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
+  transform-style: preserve-3d;
+}
+.city-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.city-bg-detail {
+  display: flex;
+  height: auto;
+  margin: 0 auto;
+  width: 100%;
+  position: absolute;
+  align-items: top;
+  justify-content: center;
+  font-size: 100%;
+  margin-top: 4em;
+}
+.city-bg-detail span {
+  padding: 0.1em 0.56em;
+  font-family: "Montserrat", sans-serif;
+  font-size: 4vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+}
+.ratings-reviews {
+  position: absolute;
+  bottom: 5px;
+  right: 4vw;
+  text-align: end;
+}
+.ratings-reviews .ratings {
+  padding: 10px 15px;
+  background-color: #fff;
+}
+.ratings-reviews .ratings i {
+  color: rgba(245, 197, 24, 1);
+}
+.ratings-reviews .reviews {
+  margin-left: 20px;
+  padding: 10px 15px;
+  background-color: rgba(40, 53, 147, 1);
+}
+.ratings-reviews span {
+  font-size: 16px;
 }
 @media screen and (max-width: 1024px) {
   .city-bg {
     height: 30rem;
   }
+  .city-bg-detail span {
+    font-size: 6vw;
+  }
 }
 @media screen and (max-width: 767px) {
-    .city-bg {
-      height: 15rem;
-    }
+  .city-bg {
+    height: 15rem;
   }
-
-
+  .ratings-reviews span {
+    font-size: 12px;
+  }
+  .ratings-reviews .reviews,
+  .ratings-reviews .ratings {
+    padding: 5px;
+  }
+}
