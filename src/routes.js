@@ -39,6 +39,8 @@ JSON.parse(localStorage.isAdmin) === null ? (
   <Switch>
     <Route exact path="/" component={HomeContainer}></Route>
     <Route exact path="/dashboard" component={DashboardContainer}></Route>
+    <Route exact path="/cities" component={CitiesAllContainer}></Route>
+    <Route exact path="/city/:id" component={CityDetails}></Route>
     <Route exact path="*" component={ErrorPage}></Route>
   </Switch>
 );

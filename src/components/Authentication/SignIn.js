@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { FormControlLabel, Checkbox, Button } from "@material-ui/core";
 import { Form, Icon, Input } from "antd";
-import { SimpleLoader } from "../../services";
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -74,7 +73,7 @@ export default class SignIn extends Component {
               style={{ borderRadius: 0 }}
               disabled={btnDisabled}
             >
-              {isFetching ? SimpleLoader() : "Sign In"}
+              {isFetching ? <Icon type="sync" spin /> : "Sign In"}
             </Button>
           </Form.Item>
         </Form>

@@ -33,6 +33,24 @@ export function GetUserRole() {
   });
 }
 
+export function GetAllUsers() {
+  return axios.get(`${API}/users/all`).then(allUser => {
+    return allUser;
+  });
+}
+
+export function GetAllUserDetails() {
+  return axios.get(`${API}/user/details/all`).then(userDetail => {
+    return userDetail;
+  });
+}
+
+export function GetAllUserImages() {
+  return axios.get(`${API}/user/images/all`).then(userImage => {
+    return userImage;
+  });
+}
+
 export function GetUserDetails(res) {
   return axios
     .get(`${API}/user/details/with_user=${res.data.user.id}`)

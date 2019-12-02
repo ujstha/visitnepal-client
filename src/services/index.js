@@ -3,9 +3,12 @@ import { Toast } from "./Toast";
 import { UserFunction, logOut } from "./UserFunction";
 import {
   GetUser,
+  GetAllUsers,
   GetUserRole,
   GetUserDetails,
   GetUserImages,
+  GetAllUserDetails,
+  GetAllUserImages,
 } from "./UserData";
 import {
   GetCities,
@@ -18,6 +21,8 @@ import {
   GetAvgRatingByCityId,
   GetCommentByCityId,
 } from "./CitiesData";
+import { CommentFunction, CommentFunctionEdit } from "./CommentFunction";
+import { RatingFunction, RatingFunctionEdit } from "./RatingFunction";
 
 export {
   logOut,
@@ -27,9 +32,12 @@ export {
   CircularLoader,
   SimpleLoader,
   GetUser,
+  GetAllUsers,
   GetUserRole,
   GetUserDetails,
   GetUserImages,
+  GetAllUserDetails,
+  GetAllUserImages,
   GetCities,
   GetCategories,
   GetCitiesImages,
@@ -39,4 +47,8 @@ export {
   GetRatingByCityId,
   GetAvgRatingByCityId,
   GetCommentByCityId,
+  CommentFunction,
+  CommentFunctionEdit,
+  RatingFunction,
+  RatingFunctionEdit,
 };

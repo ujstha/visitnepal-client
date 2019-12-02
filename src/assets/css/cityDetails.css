@@ -56,7 +56,8 @@
 .cities-description {
   font-size: 20px;
 }
-p.cities-description::first-letter, p.category-detail::first-letter {
+p.cities-description::first-letter,
+p.category-detail::first-letter {
   text-transform: uppercase;
 }
 .category-details h4 {
@@ -77,12 +78,30 @@ p.cities-description::first-letter, p.category-detail::first-letter {
   background-repeat: no-repeat;
 }
 .category-data .MuiPaper-root {
-  transition: all 0.3s cubic-bezier(0.945, 0.02, 0.27, 0.665);
+  transition: all 0.3s ease-in-out;
+}
+.category-data:hover h4 {
+  color: white !important;
 }
 .category-data:hover .MuiPaper-root {
-  background-color: darkgrey;
+  background-color: rgba(0,0,0,.7);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.945, 0.02, 0.27, 0.665);
+  color: white !important;
+  transition: all 0.3s ease-in-out;
+}
+img.user-image-comment {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+.fa-ellipsis-h {
+  cursor: pointer;
+}
+.comment-option span:hover {
+  cursor: pointer;
+  color: red;
 }
 @media screen and (max-width: 1024px) {
   .city-bg {

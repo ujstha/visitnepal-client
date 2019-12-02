@@ -215,11 +215,7 @@ export default withStyles(styles)(
               <title>{signUp ? "Sign Up Page" : "Sign In Page"}</title>
             </Helmet>
             <CssBaseline />
-            <Paper
-              elevation={6}
-              style={{ borderRadius: 0 }}
-              className={classes.paper}
-            >
+            <Paper elevation={6} className={classes.paper}>
               {Toast(
                 alertColor === "" ? "danger" : alertColor,
                 errorMessage,

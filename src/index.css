@@ -27,9 +27,9 @@ h5 {
 code {
   font-family: "Montserrat", monospace;
 }
+.MuiButton-root,
+.MuiExpansionPanel-root,
+.MuiPaper-root,
 .alert {
-  border-radius: 0;
-}
-.MuiButton-root {
   border-radius: 0 !important;
 }
