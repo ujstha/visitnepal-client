@@ -15,23 +15,22 @@ export function GetUser() {
 }
 
 export function GetUserRole() {
-  return GetUser()
-    .then(user => {
-      if (sessionStorage.token || localStorage.token) {
-        const userRole = user.data.user.isAdmin;
-        if (userRole === 0) {
-          return (localStorage.isAdmin = false);
-        } else if (userRole === 1) {
-          return (localStorage.isAdmin = true);
-        }
+  return GetUser().then(user => {
+    if (sessionStorage.token || localStorage.token) {
+      const userRole = user.data.user.isAdmin;
+      if (userRole === 0) {
+        return (localStorage.isAdmin = false);
+      } else if (userRole === 1) {
+        return (localStorage.isAdmin = true);
       }
-      if (
-        JSON.stringify(sessionStorage.token) === "" &&
-        JSON.stringify(localStorage.token) === ""
-      ) {
-        return (localStorage.isAdmin = null);
-      }
-    });
+    }
+    if (
+      JSON.stringify(sessionStorage.token) === "" &&
+      JSON.stringify(localStorage.token) === ""
+    ) {
+      return (localStorage.isAdmin = null);
+    }
+  });
 }
 
 export function GetUserDetails(res) {

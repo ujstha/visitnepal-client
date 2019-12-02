@@ -141,10 +141,31 @@ export default withStyles(styles)(
           if (signUp) {
             return this.setState({
               showAlert: true,
-              errorMessage: res.data.message,
+              errorMessage: `${res.data.message}. Redirecting to Sign In Page in....`,
               alertColor: "success",
               isFetching: false,
             });
+          } else {
+            return this.setState({
+              isFetching: false,
+            });
+          }
+        })
+        .then(res => {
+          if (
+            this.state.errorMessage ===
+            "Registration Successful. Redirecting to Sign In Page in...."
+          ) {
+            var timeleft = 3;
+            var downloadTimer = setInterval(function() {
+              document.getElementById("countdown").innerHTML =
+                timeleft + " seconds.";
+              timeleft -= 1;
+              if (timeleft <= 0) {
+                clearInterval(downloadTimer);
+                document.location = "/auth";
+              }
+            }, 1000);
           }
         })
         .catch(err => {
@@ -152,13 +173,15 @@ export default withStyles(styles)(
             return this.setState({
               showAlert: true,
               errorMessage: err.response.data.error,
-              alertColor: "danger"
+              alertColor: "danger",
+              isFetching: false,
             });
           } else {
             this.setState({
               showAlert: true,
               errorMessage: err.response.data.message,
-              alertColor: "danger"
+              alertColor: "danger",
+              isFetching: false,
             });
           }
         });
@@ -181,7 +204,7 @@ export default withStyles(styles)(
         emailError,
         userValidating,
         emailValidating,
-        isFetching
+        isFetching,
       } = this.state;
       const { classes } = this.props;
 
@@ -203,7 +226,8 @@ export default withStyles(styles)(
                 showAlert,
                 () => {
                   this.setState({ showAlert: false });
-                }
+                },
+                "countdown"
               )}
               <div className="register-container">
                 {signUp ? (
@@ -266,7 +290,9 @@ export default withStyles(styles)(
                         ? "Email is available."
                         : ""
                     }
-                    isFetching={isFetching && isFetching !== null ? true : false}
+                    isFetching={
+                      isFetching && isFetching !== null ? true : false
+                    }
                   />
                 ) : (
                   <SignIn
@@ -280,6 +306,9 @@ export default withStyles(styles)(
                     helpPassword={password === "" ? "* Required" : ""}
                     btnDisabled={
                       identity === "" || password === "" ? true : false
+                    }
+                    isFetching={
+                      isFetching && isFetching !== null ? true : false
                     }
                   />
                 )}

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { GetUserRole } from "./UserData";
 
 export function UserFunction(type, userData) {
   return axios
@@ -10,7 +11,13 @@ export function UserFunction(type, userData) {
         } else {
           sessionStorage.setItem("token", res.data.token);
         }
-        document.location = "/dashboard";
+        GetUserRole().then(res => {
+          if (res) {
+            document.location = "/admin/dashboard";
+          } else {
+            document.location = "/dashboard";
+          }
+        });
       } else if (type === "register") {
         return res;
       }
