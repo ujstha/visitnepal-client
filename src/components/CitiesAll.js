@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardMedia, Button } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import "../assets/css/home.css";
+import { CircularLoader } from "../services";
 
 const card = (cityImages, city, className, height) => (
-  <Card style={{ borderRadius: 0 }} elevation={20} key={city.id}>
+  <Card style={{ borderRadius: 0 }} elevation={10} key={city.id}>
     <CardContent>
       {cityImages
         .filter(image => city.id === image.city_id)
@@ -40,19 +41,23 @@ const card = (cityImages, city, className, height) => (
 
 export default class CitiesAll extends Component {
   render() {
-    const { cities, cityImages, className } = this.props;
+    const { cities, cityImages, className, isLoading } = this.props;
     return (
       <>
         <Helmet>
           <title>Cities - Places to visit in Nepal | VisitNepal</title>
         </Helmet>
-        {cities && cities.length !== 0 ? (
-          <div className="pt-4 home-page container-fluid">
-            <h1 className="text-center">Places to visit in Nepal</h1>
+        {isLoading ? (
+          CircularLoader(isLoading)
+        ) : cities && cities.length !== 0 ? (
+          <div className="py-4 home-page container-fluid">
+            <h1 className="MuiPaper-root MuiPaper-elevation15 text-center bg-dark text-light p-2">
+              Places to visit in Nepal
+            </h1>
             <div className="row">
               {cities.map((city, index) => {
                 return (
-                  <div className="col-md-6 col-lg-4 col-xl-4 mt-3" key={index}>
+                  <div className="col-md-6 col-lg-4 col-xl-4 mt-4" key={index}>
                     <Link to={`/city/${city.id}`}>
                       {card(cityImages, city, className, "250px")}
                     </Link>

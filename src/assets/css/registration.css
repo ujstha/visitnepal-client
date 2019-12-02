@@ -7,3 +7,6 @@
 .register-container .option {
   cursor: pointer;
 }
+.has-success .ant-form-explain {
+  color: green;
+}

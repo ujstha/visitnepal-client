@@ -13,7 +13,7 @@ export default class Category extends Component {
               {cityCategories.map((category, index) => {
                 return (
                   <div className="col-md-4 mt-3" key={index}>
-                    <Card style={{ borderRadius: 0 }} elevation={20}>
+                    <Card style={{ borderRadius: 0 }} elevation={5}>
                       <CardContent>
                         <CardMedia
                           component="img"

@@ -21,7 +21,7 @@ export default class City extends Component {
                       key={index}
                     >
                       <Link to={`/city/${city.id}`}>
-                        <Card style={{ borderRadius: 0 }} elevation={20}>
+                        <Card style={{ borderRadius: 0 }} elevation={5}>
                           <CardContent>
                             {cityImages
                               .filter(image => city.id === image.city_id)
@@ -46,6 +46,7 @@ export default class City extends Component {
                                 color="primary"
                                 variant="contained"
                                 style={{ borderRadius: 0, marginTop: 10 }}
+                                fullWidth
                               >
                                 Read More
                               </Button>

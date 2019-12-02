@@ -21,3 +21,7 @@ export function CircularLoader(isLoading) {
     );
   }
 }
+
+export function SimpleLoader() {
+  return <CircularProgress color="primary" style={{height: 20, width: 20}} />;
+}

@@ -7,6 +7,8 @@
   font: normal 36px "Cookie", cursive;
 }
 .nav-link {
+  margin: 0 !important;
+  padding: 0 !important;
   color: rgba(255, 255, 255, 0.7);
 }
 .navbar .MuiIconButton-root {

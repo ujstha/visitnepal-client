@@ -46,4 +46,9 @@
 .home-page .container-fluid h2 {
   margin: 0;
   /* text-shadow: 0 0 4px black; */
+  transition: all 0.3s cubic-bezier(0.945, 0.02, 0.27, 0.665);
+}
+.home-page .container-fluid a h2:hover {
+  color: rgba(0, 0, 0, 0.6);
+  transition: all 0.3s cubic-bezier(0.945, 0.02, 0.27, 0.665);
 }

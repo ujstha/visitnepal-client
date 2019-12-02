@@ -42,6 +42,13 @@ export default withStyles(styles)(
         showAlert: false,
         errorMessage: "",
         alertColor: "",
+        userExist: null,
+        emailExist: null,
+        userError: "",
+        emailError: "",
+        userValidating: false,
+        emailValidating: false,
+        isFetching: null,
       };
     }
     showForm = () => {
@@ -54,8 +61,58 @@ export default withStyles(styles)(
         [e.target.name]: e.target.value,
       });
     };
+    onBlur = e => {
+      e.preventDefault();
+      const { username, email } = this.state;
+      let signUpData = {
+        username: username,
+        email: email,
+      };
+
+      UserFunction("register", signUpData).catch(err => {
+        if (err.response.data.errors.username) {
+          this.setState({
+            userExist: true,
+            userValidating: false,
+          });
+        } else {
+          this.setState({
+            userExist: false,
+            userValidating: false,
+          });
+        }
+        if (err.response.data.errors.email) {
+          this.setState({
+            emailExist: true,
+            emailValidating: false,
+          });
+        } else {
+          this.setState({
+            emailExist: false,
+            emailValidating: false,
+          });
+        }
+        this.setState({
+          userError: err.response.data.errors.username,
+          emailError: err.response.data.errors.email,
+        });
+      });
+    };
+    onUserInput = () => {
+      this.setState({
+        userValidating: true,
+      });
+    };
+    onEmailInput = () => {
+      this.setState({
+        emailValidating: true,
+      });
+    };
     authenticate = e => {
       e.preventDefault();
+      this.setState({
+        isFetching: true,
+      });
       const {
         identity,
         username,
@@ -86,6 +143,7 @@ export default withStyles(styles)(
               showAlert: true,
               errorMessage: res.data.message,
               alertColor: "success",
+              isFetching: false,
             });
           }
         })
@@ -94,12 +152,13 @@ export default withStyles(styles)(
             return this.setState({
               showAlert: true,
               errorMessage: err.response.data.error,
+              alertColor: "danger"
             });
           } else {
-            console.log(err.response);
             this.setState({
               showAlert: true,
               errorMessage: err.response.data.message,
+              alertColor: "danger"
             });
           }
         });
@@ -116,10 +175,18 @@ export default withStyles(styles)(
         username,
         password_confirmation,
         email,
+        userExist,
+        emailExist,
+        userError,
+        emailError,
+        userValidating,
+        emailValidating,
+        isFetching
       } = this.state;
       const { classes } = this.props;
+
       return (
-        <React.Fragment>
+        <>
           <main className={classes.main}>
             <Helmet>
               <title>{signUp ? "Sign Up Page" : "Sign In Page"}</title>
@@ -164,6 +231,42 @@ export default withStyles(styles)(
                         ? "Above passwords must match."
                         : ""
                     }
+                    onBlur={this.onBlur}
+                    onUserInput={this.onUserInput}
+                    onEmailInput={this.onEmailInput}
+                    userExist={
+                      userValidating
+                        ? "validating"
+                        : userExist
+                        ? "error"
+                        : !userExist && userExist !== null
+                        ? "success"
+                        : ""
+                    }
+                    userExistMsg={
+                      userExist
+                        ? userError
+                        : !userExist && userExist !== null
+                        ? "Username is available."
+                        : ""
+                    }
+                    emailExist={
+                      emailValidating
+                        ? "validating"
+                        : emailExist
+                        ? "error"
+                        : !emailExist && emailExist !== null
+                        ? "success"
+                        : ""
+                    }
+                    emailExistMsg={
+                      emailExist
+                        ? emailError
+                        : !emailExist && emailExist !== null
+                        ? "Email is available."
+                        : ""
+                    }
+                    isFetching={isFetching && isFetching !== null ? true : false}
                   />
                 ) : (
                   <SignIn
@@ -204,7 +307,7 @@ export default withStyles(styles)(
               </div>
             </Paper>
           </main>
-        </React.Fragment>
+        </>
       );
     }
   }

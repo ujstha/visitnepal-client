@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FormControlLabel, Checkbox, Button } from "@material-ui/core";
 import { Form, Icon, Input } from "antd";
+import { SimpleLoader } from "../../services";
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -26,6 +27,14 @@ export default class SignUp extends Component {
       btnDisabled,
       passMatch,
       passMatchMsg,
+      onBlur,
+      userExist,
+      userExistMsg,
+      emailExist,
+      emailExistMsg,
+      onUserInput,
+      onEmailInput,
+      isFetching,
     } = this.props;
     const { agreement } = this.state;
     sessionStorage.setItem("agreement", agreement);
@@ -37,7 +46,7 @@ export default class SignUp extends Component {
           <span>use your email for registration</span>
         </div>
         <Form onSubmit={onSubmit}>
-          <Form.Item>
+          <Form.Item validateStatus={userExist} help={userExistMsg} hasFeedback>
             <Input
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Username *"
@@ -45,9 +54,15 @@ export default class SignUp extends Component {
               name={username}
               onChange={onChange}
               required={true}
+              onBlur={onBlur}
+              onInput={onUserInput}
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item
+            validateStatus={emailExist}
+            help={emailExistMsg}
+            hasFeedback
+          >
             <Input
               prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Email *"
@@ -55,6 +70,8 @@ export default class SignUp extends Component {
               name={email}
               onChange={onChange}
               required={true}
+              onBlur={onBlur}
+              onInput={onEmailInput}
             />
           </Form.Item>
           <Form.Item>
@@ -69,7 +86,7 @@ export default class SignUp extends Component {
               required={true}
             />
           </Form.Item>
-          <Form.Item validateStatus={passMatch} help={passMatchMsg}>
+          <Form.Item validateStatus={passMatch} help={passMatchMsg} hasFeedback>
             <Input.Password
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               type="password"
@@ -99,9 +116,9 @@ export default class SignUp extends Component {
               fullWidth
               variant="contained"
               style={{ borderRadius: 0 }}
-              disabled={!agreement || btnDisabled ? true: false}
+              disabled={!agreement || btnDisabled ? true : false}
             >
-              Sign Up
+              {isFetching ? SimpleLoader() : "Sign Up"}
             </Button>
           </Form.Item>
         </Form>

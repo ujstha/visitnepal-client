@@ -1,12 +1,11 @@
 .city-bg {
-  height: 40rem;
+  height: 32rem;
   width: 100%;
   position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  transform-style: preserve-3d;
 }
 .city-bg-overlay {
   position: absolute;
@@ -30,7 +29,7 @@
 .city-bg-detail span {
   padding: 0.1em 0.56em;
   font-family: "Montserrat", sans-serif;
-  font-size: 4vw;
+  font-size: 2vw;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
 }
@@ -48,24 +47,61 @@
   color: rgba(245, 197, 24, 1);
 }
 .ratings-reviews .reviews {
-  margin-left: 20px;
   padding: 10px 15px;
   background-color: rgba(40, 53, 147, 1);
 }
 .ratings-reviews span {
   font-size: 16px;
 }
+.cities-description {
+  font-size: 20px;
+}
+p.cities-description::first-letter, p.category-detail::first-letter {
+  text-transform: uppercase;
+}
+.category-details h4 {
+  font-weight: bold;
+}
+.category-details span {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.category-image-container {
+  height: 200px;
+}
+.category-image {
+  width: 100%;
+  height: inherit;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.category-data .MuiPaper-root {
+  transition: all 0.3s cubic-bezier(0.945, 0.02, 0.27, 0.665);
+}
+.category-data:hover .MuiPaper-root {
+  background-color: darkgrey;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.945, 0.02, 0.27, 0.665);
+}
 @media screen and (max-width: 1024px) {
   .city-bg {
-    height: 30rem;
+    height: 32rem;
+    background-position: center !important;
+    background-attachment: scroll;
   }
   .city-bg-detail span {
-    font-size: 6vw;
+    font-size: 4vw;
   }
 }
 @media screen and (max-width: 767px) {
   .city-bg {
-    height: 15rem;
+    height: 18rem;
+    background-position: center !important;
+    background-attachment: scroll;
+  }
+  .city-bg-detail span {
+    font-size: 6vw;
   }
   .ratings-reviews span {
     font-size: 12px;
@@ -73,5 +109,8 @@
   .ratings-reviews .reviews,
   .ratings-reviews .ratings {
     padding: 5px;
+  }
+  .category-details {
+    margin: 0 8px;
   }
 }

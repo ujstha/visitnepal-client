@@ -30,7 +30,7 @@ export default withStyles(styles)(
           ) : (
             <div className="home-page">
               <SliderContainer />
-              <div className="container-fluid mt-4">
+              <div className="container-fluid my-5">
                 <City
                   className={classes.media}
                   cities={cities}

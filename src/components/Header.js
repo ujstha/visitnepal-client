@@ -71,7 +71,7 @@ export default withRouter(
                   <NavLink href="/terms">
                     <Button
                       color={path === "/terms" ? "primary" : "inherit"}
-                      variant={path === "/terms" ? "contained" : "standard"}
+                      variant={path === "/terms" ? "contained" : "text"}
                     >
                       Terms
                     </Button>
@@ -81,9 +81,19 @@ export default withRouter(
                   <NavLink href="/about">
                     <Button
                       color={path === "/about" ? "primary" : "inherit"}
-                      variant={path === "/about" ? "contained" : "standard"}
+                      variant={path === "/about" ? "contained" : "text"}
                     >
                       About
+                    </Button>
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/cities">
+                    <Button
+                      color={path === "/cities" ? "primary" : "inherit"}
+                      variant={path === "/cities" ? "contained" : "text"}
+                    >
+                      Cities
                     </Button>
                   </NavLink>
                 </NavItem>
@@ -118,11 +128,10 @@ export default withRouter(
                     <NavLink href="/auth">
                       <Button
                         color={path === "/auth" ? "primary" : "inherit"}
-                        variant={path === "/auth" ? "contained" : "standard"}
+                        variant={path === "/auth" ? "contained" : "text"}
                       >
                         Register / Login
                       </Button>
-                      {console.log(this.props)}
                     </NavLink>
                   </NavItem>
                 )}

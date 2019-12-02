@@ -1,4 +1,4 @@
-import { Loader, CircularLoader } from "./Loader";
+import { Loader, CircularLoader, SimpleLoader } from "./Loader";
 import { Toast } from "./Toast";
 import { UserFunction, logOut } from "./UserFunction";
 import {
@@ -25,6 +25,7 @@ export {
   Toast,
   Loader,
   CircularLoader,
+  SimpleLoader,
   GetUser,
   GetUserRole,
   GetUserDetails,
