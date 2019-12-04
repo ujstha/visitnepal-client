@@ -36,3 +36,18 @@ export function CommentFunctionEdit(
       return res;
     });
 }
+
+export function DeleteComment(comment_id, by_user, location) {
+  return axios
+    .delete(
+      `${process.env.REACT_APP_BASEURL +
+        "/delete/comment/with_id=" +
+        comment_id +
+        "/by_user=" +
+        by_user}`
+    )
+    .then(res => {
+      document.location = `${location}`;
+      return res;
+    });
+}

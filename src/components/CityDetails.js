@@ -15,6 +15,7 @@ import {
   CommentFunctionEdit,
   RatingFunction,
   RatingFunctionEdit,
+  DeleteComment,
 } from "../services";
 import "../assets/css/cityDetails.css";
 import {
@@ -46,7 +47,7 @@ export default class CityDetails extends Component {
       userImages: [],
       showPopover: {},
       editComment: {},
-      isEditComment: false,
+      deleteComment: {},
       rate: null,
       showMoreCmnt: false,
       ID: this.props.match.params.id,
@@ -162,16 +163,20 @@ export default class CityDetails extends Component {
     ).catch(err => console.log(err.response));
   };
 
-  showEditModal = id => {
+  showEditModal = (id, del) => {
     this.setState(prevState => ({
       editComment: {
         ...prevState.editComment,
         [id]: !prevState.editComment[id],
       },
     }));
-    this.setState({
-      isEditComment: !this.state.isEditComment,
-    });
+
+    this.setState(prevState => ({
+      deleteComment: {
+        ...prevState.deleteComment,
+        [del]: !prevState.deleteComment[del],
+      },
+    }));
   };
   showPopOver = id => {
     this.setState(prevState => ({
@@ -184,6 +189,7 @@ export default class CityDetails extends Component {
 
   render() {
     const {
+      ID,
       userID,
       cities,
       categories,
@@ -199,11 +205,13 @@ export default class CityDetails extends Component {
       editCmntError,
       editCmntStatus,
       editComment,
-      isEditComment,
       showPopover,
       rate,
       showMoreCmnt,
+      deleteComment,
     } = this.state;
+
+    const auth = localStorage.token || sessionStorage.token;
 
     let slicedComments = comments;
 
@@ -277,47 +285,47 @@ export default class CityDetails extends Component {
                             <Form>
                               <Form.Item></Form.Item>
                             </Form>
-                            <Form
-                              onSubmit={this.submitComment}
-                              className="col-md-12"
-                            >
-                              <Form.Item
-                                validateStatus={cmntStatus ? "error" : ""}
-                                help={cmntStatus ? cmntError : ""}
-                                hasFeedback
+                            {auth && (
+                              <Form
+                                onSubmit={this.submitComment}
+                                className="col-md-12"
                               >
-                                <Input
-                                  prefix={
-                                    <Icon
-                                      type="message"
-                                      style={{ color: "rgba(0,0,0,.25)" }}
-                                    />
-                                  }
-                                  suffix={
-                                    <Button
-                                      type="submit"
-                                      variant="outlined"
-                                      color="primary"
-                                      className="mr-3"
-                                      disabled={isEditComment ? true : false}
-                                    >
-                                      Submit
-                                    </Button>
-                                  }
-                                  placeholder="Write a review......"
-                                  type="text"
-                                  name="comment"
-                                  onChange={this.onCommentChange}
-                                  size="large"
-                                  disabled={isEditComment ? true : false}
-                                />
-                              </Form.Item>
-                            </Form>
+                                <Form.Item
+                                  validateStatus={cmntStatus ? "error" : ""}
+                                  help={cmntStatus ? cmntError : ""}
+                                  hasFeedback
+                                >
+                                  <Input
+                                    prefix={
+                                      <Icon
+                                        type="message"
+                                        style={{ color: "rgba(0,0,0,.25)" }}
+                                      />
+                                    }
+                                    suffix={
+                                      <Button
+                                        type="submit"
+                                        variant="outlined"
+                                        color="primary"
+                                        className="mr-3"
+                                      >
+                                        Submit
+                                      </Button>
+                                    }
+                                    placeholder="Write a review......"
+                                    type="text"
+                                    name="comment"
+                                    onChange={this.onCommentChange}
+                                    size="large"
+                                  />
+                                </Form.Item>
+                              </Form>
+                            )}
                             {comments && comments.length !== 0 ? (
                               slicedComments.map(comment => {
                                 return (
                                   <Paper
-                                    className={`col-md-12 py-3 comment-section mt-2`}
+                                    className={`col-md-12 py-1 comment-section mt-2`}
                                     key={comment.id}
                                     style={{
                                       letterSpacing: 1,
@@ -345,14 +353,24 @@ export default class CityDetails extends Component {
                                           );
                                         })}
                                       <span className="ml-3">
-                                        <span style={{ fontSize: 14 }}>
+                                        <span
+                                          style={{ fontSize: 14 }}
+                                          className="text-capitalize"
+                                        >
                                           {allUsers
                                             .filter(
                                               allUser =>
                                                 allUser.id === comment.user_id
                                             )
-                                            .map(user => {
-                                              return user.username;
+                                            .map((user, index) => {
+                                              return (
+                                                <a
+                                                  href={`/user_username=${user.username}.${comment.user_id}`}
+                                                  key={index}
+                                                >
+                                                  {user.username}
+                                                </a>
+                                              );
                                             })}
                                         </span>
                                         <br />
@@ -365,7 +383,8 @@ export default class CityDetails extends Component {
                                                 <span
                                                   onClick={() =>
                                                     this.showEditModal(
-                                                      comment.id
+                                                      comment.id,
+                                                      0
                                                     )
                                                   }
                                                 >
@@ -373,7 +392,14 @@ export default class CityDetails extends Component {
                                                   &nbsp; Edit....
                                                 </span>{" "}
                                                 <br />
-                                                <span>
+                                                <span
+                                                  onClick={() =>
+                                                    this.showEditModal(
+                                                      0,
+                                                      comment.id
+                                                    )
+                                                  }
+                                                >
                                                   <i className="fa fa-trash"></i>{" "}
                                                   &nbsp; Delete....
                                                 </span>
@@ -404,13 +430,19 @@ export default class CityDetails extends Component {
                                       </span>
                                     </div>
                                     <Modal
-                                      key={comment.id}
-                                      title={<b style={{fontSize: 18}}>Edit Comment</b>}
+                                      className="edit-comment-modal"
+                                      title={
+                                        <b style={{ fontSize: 18 }}>
+                                          Edit Comment
+                                        </b>
+                                      }
                                       visible={
                                         !editComment[comment.id] ? false : true
                                       }
                                       footer={null}
-                                      onCancel={() => this.showEditModal(comment.id)}
+                                      onCancel={() =>
+                                        this.showEditModal(comment.id)
+                                      }
                                     >
                                       <Form
                                         id={comment.id}
@@ -442,7 +474,8 @@ export default class CityDetails extends Component {
                                             color="secondary"
                                             className="float-right"
                                           >
-                                            <i className="fa fa-edit"></i> &nbsp; Edit
+                                            <i className="fa fa-edit"></i>{" "}
+                                            &nbsp; Edit
                                           </Button>
                                           <Button
                                             className="mr-2 float-right"
@@ -451,10 +484,57 @@ export default class CityDetails extends Component {
                                               this.showEditModal(comment.id)
                                             }
                                           >
-                                            <i className="fa fa-times"></i> &nbsp; Cancel
+                                            <i className="fa fa-times"></i>{" "}
+                                            &nbsp; Cancel
                                           </Button>
                                         </Form.Item>
                                       </Form>
+                                    </Modal>
+                                    <Modal
+                                      className="delete-comment-modal"
+                                      title={
+                                        <b style={{ fontSize: 18 }}>
+                                          Delete Comment
+                                        </b>
+                                      }
+                                      visible={
+                                        !deleteComment[comment.id]
+                                          ? false
+                                          : true
+                                      }
+                                      footer={null}
+                                      onCancel={() =>
+                                        this.showEditModal(0, comment.id)
+                                      }
+                                    >
+                                      Are you sure, you want to delete this
+                                      comment?{" "}
+                                      <div className="clearfix mt-2">
+                                        <Button
+                                          variant="contained"
+                                          className="float-right bg-danger text-light"
+                                          onClick={() =>
+                                            DeleteComment(
+                                              comment.id,
+                                              userID,
+                                              `/city/${ID}`
+                                            )
+                                          }
+                                        >
+                                          <i className="fa fa-trash"></i> &nbsp;
+                                          Delete
+                                        </Button>
+                                        <Button
+                                          className="mr-2 float-right"
+                                          variant="outlined"
+                                          onClick={() =>
+                                            this.showEditModal(0, comment.id)
+                                          }
+                                        >
+                                          <i className="fa fa-times"></i> &nbsp;
+                                          Cancel
+                                        </Button>
+                                      </div>
                                     </Modal>
                                   </Paper>
                                 );

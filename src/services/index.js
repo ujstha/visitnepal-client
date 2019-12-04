@@ -21,7 +21,11 @@ import {
   GetAvgRatingByCityId,
   GetCommentByCityId,
 } from "./CitiesData";
-import { CommentFunction, CommentFunctionEdit } from "./CommentFunction";
+import {
+  CommentFunction,
+  CommentFunctionEdit,
+  DeleteComment,
+} from "./CommentFunction";
 import { RatingFunction, RatingFunctionEdit } from "./RatingFunction";
 
 export {
@@ -49,6 +53,7 @@ export {
   GetCommentByCityId,
   CommentFunction,
   CommentFunctionEdit,
+  DeleteComment,
   RatingFunction,
   RatingFunctionEdit,
 };
