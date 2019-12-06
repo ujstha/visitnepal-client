@@ -6,7 +6,7 @@ export function Loader(isLoading) {
   if (isLoading) {
     return (
       <div className="loader">
-        <LinearProgress color="primary" />
+        <LinearProgress color="secondary" />
       </div>
     );
   }

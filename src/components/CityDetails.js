@@ -53,7 +53,7 @@ export default class CityDetails extends Component {
       ID: this.props.match.params.id,
     };
   }
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     const cityID = this.state.ID;
 
     GetCityById(cityID).then(res => {

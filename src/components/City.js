@@ -9,8 +9,9 @@ export default class City extends Component {
       <>
         {cities.length !== 0 && (
           <div className="mt-2">
-            <Link to="/cities">
-              <h2 className="text-center">Where to go in Nepal</h2>
+            <Link to="/cities" className="clearfix home-header">
+              <h2 className="float-left">Where to go in Nepal</h2>
+              <i className="float-right fa fa-arrow-right directional-arrow"></i>
             </Link>
             <div className="row">
               {cities.map((city, index) => {
