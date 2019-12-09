@@ -4,7 +4,7 @@ const API = process.env.REACT_APP_BASEURL;
 
 export function GetCities() {
   return axios.get(`${API}/cities`).then(cities => {
-    return cities.data.data;
+    return cities.data;
   });
 }
 

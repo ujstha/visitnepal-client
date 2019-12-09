@@ -28,7 +28,12 @@ export default class App extends React.Component {
         <Router>
           <HeaderContainer />
           {routes}
-          <Footer />
+          {!localStorage.isAdmin ||
+          JSON.parse(localStorage.isAdmin) === null ? (
+            <Footer />
+          ) : (
+            null
+          )}
         </Router>
       </MuiThemeProvider>
     );

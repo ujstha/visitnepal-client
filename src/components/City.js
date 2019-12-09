@@ -4,17 +4,16 @@ import { Card, CardContent, CardMedia, Button } from "@material-ui/core";
 
 export default class City extends Component {
   render() {
-    const { cities, cityImages, className } = this.props;
+    const { cities, className } = this.props;
     return (
       <>
-        {cities.length !== 0 && (
+        {cities.city.length !== 0 && (
           <div className="mt-2">
             <Link to="/cities" className="clearfix home-header">
-              <h2 className="float-left">Where to go in Nepal</h2>
-              <i className="float-right fa fa-arrow-right directional-arrow"></i>
+              <h2>Where to go in Nepal</h2>
             </Link>
             <div className="row">
-              {cities.map((city, index) => {
+              {cities.city.map((city, index) => {
                 return (
                   index < 3 && (
                     <div
@@ -24,7 +23,7 @@ export default class City extends Component {
                       <Link to={`/city/${city.id}`}>
                         <Card style={{ borderRadius: 0 }} elevation={5}>
                           <CardContent>
-                            {cityImages
+                            {cities.city_image
                               .filter(image => city.id === image.city_id)
                               .map((image, index) => (
                                 <CardMedia

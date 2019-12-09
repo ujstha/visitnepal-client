@@ -103,14 +103,6 @@ img.user-image-comment {
   cursor: pointer;
   color: red;
 }
-.directional-arrow {
-  margin-right: 20px;
-  transition: all 0.3s ease-in-out;
-}
-.home-header:hover .directional-arrow {
-  margin-right: 0;
-  transition: all 0.3s ease-in-out;
-}
 @media screen and (max-width: 1024px) {
   .city-bg {
     height: 32rem;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CitiesAll from "../components/CitiesAll";
-import { GetCities, GetCategories, GetCitiesImages } from "../services";
+import { GetCities } from "../services";
 
 export default class CitiesAllContainer extends Component {
   constructor(props) {
@@ -15,25 +15,12 @@ export default class CitiesAllContainer extends Component {
   componentDidMount() {
     GetCities().then(cities =>
       this.setState({
-        cities: cities,
+        cities: cities.city,
+        cityCategories: cities.category,
+        cityImages: cities.city_image,
+        isLoading: false,
       })
     );
-    GetCategories().then(categories => {
-      this.setState({
-        cityCategories: categories,
-      });
-    });
-    GetCitiesImages()
-      .then(images => {
-        this.setState({
-          cityImages: images,
-        });
-      })
-      .then(res => {
-        this.setState({
-          isLoading: false,
-        });
-      });
   }
   render() {
     const { isLoading, cities, cityCategories, cityImages } = this.state;

@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import Home from "../components/Home";
-import { GetCities, GetCategories, GetCitiesImages } from "../services";
+import { GetCities } from "../services";
 
 export default class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cities: [],
-      cityImages: [],
-      cityCategories: [],
+      cities: {},
       isLoading: true,
     };
   }
@@ -16,33 +14,17 @@ export default class HomeContainer extends Component {
     GetCities().then(cities =>
       this.setState({
         cities: cities,
+        isLoading: false
       })
     );
-    GetCategories().then(categories => {
-      this.setState({
-        cityCategories: categories,
-      });
-    });
-    GetCitiesImages()
-      .then(images => {
-        this.setState({
-          cityImages: images,
-        });
-      })
-      .then(res => {
-        this.setState({
-          isLoading: false,
-        });
-      });
   }
   render() {
-    const { isLoading, cities, cityCategories, cityImages } = this.state;
+    const { isLoading, cities } = this.state;
     return (
       <Home
         isLoading={isLoading}
-        cityImages={cityImages}
         cities={cities}
-        cityCategories={cityCategories}
+        cityCategories={cities.category}
       />
     );
   }

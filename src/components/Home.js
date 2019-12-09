@@ -20,7 +20,6 @@ export default withStyles(styles)(
         isLoading,
         cities,
         cityCategories,
-        cityImages,
         classes,
       } = this.props;
       return (
@@ -34,7 +33,6 @@ export default withStyles(styles)(
                 <City
                   className={classes.media}
                   cities={cities}
-                  cityImages={cityImages}
                 />
                 <Category
                   className={classes.media}

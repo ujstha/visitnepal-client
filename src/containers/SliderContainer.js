@@ -7,7 +7,7 @@ export default class SliderContainer extends Component {
     super(props);
     this.state = {
       isLoading: false,
-      images: []
+      images: [],
     };
     this.carousel = React.createRef();
   }
@@ -18,9 +18,9 @@ export default class SliderContainer extends Component {
     this.carousel.prev();
   };
   componentDidMount() {
-    axios
-      .get(`${process.env.REACT_APP_BASEURL}/slider`)
-      .then(res => {console.log(res); this.setState({images: res.data})});
+    axios.get(`${process.env.REACT_APP_BASEURL}/slider`).then(res => {
+      this.setState({ images: res.data });
+    });
   }
   render() {
     const { isLoading, images } = this.state;

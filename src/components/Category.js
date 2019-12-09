@@ -8,7 +8,7 @@ export default class Category extends Component {
       <>
         {cityCategories.length !== 0 && (
           <div className="mt-5">
-            <h2 className="text-center">What to see in Nepal</h2>
+            <h2>What to see in Nepal</h2>
             <div className="row mt-3">
               {cityCategories.map((category, index) => {
                 return (

@@ -14,7 +14,8 @@ GetUserRole().then(res => {
   return res;
 });
 
-export default !localStorage.isAdmin ||
+export default (!sessionStorage.token && !localStorage.token) ||
+!localStorage.isAdmin ||
 JSON.parse(localStorage.isAdmin) === null ? (
   // user not logged in route
   <Switch>
@@ -26,15 +27,19 @@ JSON.parse(localStorage.isAdmin) === null ? (
     <Route exact path="/city/:id" component={CityDetails}></Route>
     <Route exact path="*" component={ErrorPage}></Route>
   </Switch>
-) : JSON.parse(localStorage.isAdmin) ? (
+) : (sessionStorage.token || localStorage.token) &&
+  JSON.parse(localStorage.isAdmin) ? (
   // user logged in and is admin
   <Switch>
     <Route exact path="/" component={HomeContainer}></Route>
     <Route exact path="/admin/dashboard" component={AdminDashboard}></Route>
     <Route exact path="/admin" component={Event}></Route>
+    <Route exact path="/cities" component={CitiesAllContainer}></Route>
+    <Route exact path="/city/:id" component={CityDetails}></Route>
     <Route exact path="*" component={ErrorPage}></Route>
   </Switch>
-) : (
+) : (sessionStorage.token || localStorage.token) &&
+  !JSON.parse(localStorage.isAdmin) ? (
   // user logged in but is not admin
   <Switch>
     <Route exact path="/" component={HomeContainer}></Route>
@@ -42,5 +47,9 @@ JSON.parse(localStorage.isAdmin) === null ? (
     <Route exact path="/cities" component={CitiesAllContainer}></Route>
     <Route exact path="/city/:id" component={CityDetails}></Route>
     <Route exact path="*" component={ErrorPage}></Route>
+  </Switch>
+) : (
+  <Switch>
+    <Route exact path="/" component={HomeContainer}></Route>
   </Switch>
 );

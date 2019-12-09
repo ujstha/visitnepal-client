@@ -1,8 +1,24 @@
 import React, { Component } from "react";
 
 export default class AdminSidebar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAccordion: {},
+    };
+  }
+  showAccordion = (id, del) => {
+    this.setState(prevState => ({
+      showAccordion: {
+        ...prevState.showAccordion,
+        [id]: !prevState.showAccordion[id],
+      },
+    }));
+  };
   render() {
     const { showSidebar } = this.props;
+    const { showAccordion } = this.state;
+
     return (
       <nav
         className={`w3-sidebar w3-collapse w3-white w3-animate-left ${

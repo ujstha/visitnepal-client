@@ -11,24 +11,14 @@ export default class AdminDashboard extends Component {
     this.state = {
       showSidebar: false,
       showDropdown: false,
-      usersCount: "",
-      citiesCount: "",
+      count: {},
     };
   }
   componentDidMount() {
-    axios
-      .all([
-        axios.get(`${process.env.REACT_APP_BASEURL}/cities/count`),
-        axios.get(`${process.env.REACT_APP_BASEURL}/users/count`),
-      ])
-      .then(
-        axios.spread((citiesRes, usersRes) => {
-          this.setState({
-            citiesCount: citiesRes.data,
-            usersCount: usersRes.data,
-          });
-        })
-      );
+    const BASEURL = process.env.REACT_APP_BASEURL;
+    axios.get(`${BASEURL}/count/all`).then(res => this.setState({
+      count: res.data
+    }));
   }
   toggleNav = () => {
     this.setState({
@@ -36,20 +26,28 @@ export default class AdminDashboard extends Component {
     });
   };
   toggleDropDown = () => {
-      this.setState({
-          showDropdown: !this.state.showDropdown
-      })
-  }
+    this.setState({
+      showDropdown: !this.state.showDropdown,
+    });
+  };
   render() {
     const { isLoading } = this.props;
-    const { showSidebar, showDropdown, citiesCount, usersCount } = this.state;
+    const {
+      showSidebar,
+      showDropdown,
+      count,
+    } = this.state;
     return (
       <div>
         {isLoading ? (
           Loader(isLoading)
         ) : (
           <div className="admin-dashboard">
-            <AdminHeader toggleNav={this.toggleNav} toggleDropDown={this.toggleDropDown} showDropdown={showDropdown} />
+            <AdminHeader
+              toggleNav={this.toggleNav}
+              toggleDropDown={this.toggleDropDown}
+              showDropdown={showDropdown}
+            />
             <AdminSidebar showSidebar={showSidebar} />
 
             <div
@@ -75,10 +73,10 @@ export default class AdminDashboard extends Component {
                       <i className="fa fa-comment w3-xxxlarge"></i>
                     </div>
                     <div className="w3-right">
-                      <h3>52</h3>
+                      <h3>{count.comment_count}</h3>
                     </div>
                     <div className="w3-clear"></div>
-                    <h4>Messages</h4>
+                    <h4>Reviews</h4>
                   </div>
                 </div>
                 <div className="w3-quarter">
@@ -87,7 +85,7 @@ export default class AdminDashboard extends Component {
                       <i className="fa fa-eye w3-xxxlarge"></i>
                     </div>
                     <div className="w3-right">
-                      <h3>99</h3>
+                      <h3>{count.view_count}</h3>
                     </div>
                     <div className="w3-clear"></div>
                     <h4>Views</h4>
@@ -99,7 +97,7 @@ export default class AdminDashboard extends Component {
                       <i className="fa fa-landmark w3-xxxlarge"></i>
                     </div>
                     <div className="w3-right">
-                      <h3>{citiesCount}</h3>
+                      <h3>{count.city_count}</h3>
                     </div>
                     <div className="w3-clear"></div>
                     <h4>Locations</h4>
@@ -111,7 +109,7 @@ export default class AdminDashboard extends Component {
                       <i className="fa fa-users w3-xxxlarge"></i>
                     </div>
                     <div className="w3-right">
-                      <h3>{usersCount}</h3>
+                      <h3>{count.user_count}</h3>
                     </div>
                     <div className="w3-clear"></div>
                     <h4>Users</h4>
