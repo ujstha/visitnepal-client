@@ -14,18 +14,16 @@ const styles = theme => ({
     [theme.breakpoints.up(400 + theme.spacing(3) * 2)]: {
       width: 400,
       marginLeft: "auto",
-      marginRight: "auto",
-    },
+      marginRight: "auto"
+    }
   },
   paper: {
     marginTop: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(
-      3
-    )}px`,
-  },
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
+  }
 });
 
 export default withStyles(styles)(
@@ -48,17 +46,17 @@ export default withStyles(styles)(
         emailError: "",
         userValidating: false,
         emailValidating: false,
-        isFetching: null,
+        isFetching: null
       };
     }
     showForm = () => {
       this.setState({
-        signUp: !this.state.signUp,
+        signUp: !this.state.signUp
       });
     };
     onChange = e => {
       this.setState({
-        [e.target.name]: e.target.value,
+        [e.target.name]: e.target.value
       });
     };
     onBlur = e => {
@@ -66,52 +64,52 @@ export default withStyles(styles)(
       const { username, email } = this.state;
       let signUpData = {
         username: username,
-        email: email,
+        email: email
       };
 
       UserFunction("register", signUpData).catch(err => {
         if (err.response.data.errors.username) {
           this.setState({
             userExist: true,
-            userValidating: false,
+            userValidating: false
           });
         } else {
           this.setState({
             userExist: false,
-            userValidating: false,
+            userValidating: false
           });
         }
         if (err.response.data.errors.email) {
           this.setState({
             emailExist: true,
-            emailValidating: false,
+            emailValidating: false
           });
         } else {
           this.setState({
             emailExist: false,
-            emailValidating: false,
+            emailValidating: false
           });
         }
         this.setState({
           userError: err.response.data.errors.username,
-          emailError: err.response.data.errors.email,
+          emailError: err.response.data.errors.email
         });
       });
     };
     onUserInput = () => {
       this.setState({
-        userValidating: true,
+        userValidating: true
       });
     };
     onEmailInput = () => {
       this.setState({
-        emailValidating: true,
+        emailValidating: true
       });
     };
     authenticate = e => {
       e.preventDefault();
       this.setState({
-        isFetching: true,
+        isFetching: true
       });
       const {
         identity,
@@ -119,18 +117,18 @@ export default withStyles(styles)(
         email,
         password,
         password_confirmation,
-        signUp,
+        signUp
       } = this.state;
 
       let signInData = {
         identity: identity,
-        password: password,
+        password: password
       };
       let signUpData = {
         username: username,
         email: email,
         password: password,
-        password_confirmation: password_confirmation,
+        password_confirmation: password_confirmation
       };
 
       UserFunction(
@@ -141,32 +139,13 @@ export default withStyles(styles)(
           if (signUp) {
             return this.setState({
               showAlert: true,
-              errorMessage: `${res.data.message}. Redirecting to Sign In Page in....`,
+              errorMessage: res.data.message,
               alertColor: "success",
-              isFetching: false,
-            });
-          } else {
-            return this.setState({
-              isFetching: false,
             });
           }
-        })
-        .then(res => {
-          if (
-            this.state.errorMessage ===
-            "Registration Successful. Redirecting to Sign In Page in...."
-          ) {
-            var timeleft = 3;
-            var downloadTimer = setInterval(function() {
-              document.getElementById("countdown").innerHTML =
-                timeleft + " seconds.";
-              timeleft -= 1;
-              if (timeleft <= 0) {
-                clearInterval(downloadTimer);
-                document.location = "/auth";
-              }
-            }, 1000);
-          }
+          this.setState({
+            isFetching: false
+          });
         })
         .catch(err => {
           if (!signUp) {
@@ -174,14 +153,14 @@ export default withStyles(styles)(
               showAlert: true,
               errorMessage: err.response.data.error,
               alertColor: "danger",
-              isFetching: false,
+              isFetching: false
             });
           } else {
             this.setState({
               showAlert: true,
               errorMessage: err.response.data.message,
               alertColor: "danger",
-              isFetching: false,
+              isFetching: false
             });
           }
         });
@@ -204,7 +183,7 @@ export default withStyles(styles)(
         emailError,
         userValidating,
         emailValidating,
-        isFetching,
+        isFetching
       } = this.state;
       const { classes } = this.props;
 

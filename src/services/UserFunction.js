@@ -13,7 +13,7 @@ export function UserFunction(type, userData) {
         }
         GetUserRole().then(res => {
           if (res) {
-            document.location = "/admin/dashboard";
+            document.location = "/dashboard";
           } else {
             document.location = "/dashboard";
           }
@@ -21,6 +21,14 @@ export function UserFunction(type, userData) {
       } else if (type === "register") {
         return res;
       }
+    });
+}
+
+export function ResetPassword(email, passData) {
+  return axios
+    .post(`${process.env.REACT_APP_BASEURL + "/reset/" + email}`, passData)
+    .then(res => {
+      return res;
     });
 }
 

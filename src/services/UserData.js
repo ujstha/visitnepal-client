@@ -16,7 +16,7 @@ export function GetUser() {
 
 export function GetUserRole() {
   return GetUser().then(user => {
-    if (sessionStorage.token || localStorage.token) {
+    if (user.data && (sessionStorage.token || localStorage.token)) {
       const userRole = user.data.user.isAdmin;
       if (userRole === 0) {
         return (localStorage.isAdmin = false);

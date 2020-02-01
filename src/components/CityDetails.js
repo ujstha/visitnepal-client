@@ -9,12 +9,13 @@ import {
   CommentFunctionEdit,
   RatingFunction,
   RatingFunctionEdit,
-  DeleteComment,
+  DeleteComment
 } from "../services";
 import "../assets/css/cityDetails.css";
 import { Paper, Button } from "@material-ui/core";
-import { Form, Icon, Input, Tooltip, Popover, Modal } from "antd";
+import { Form, Input, Tooltip, Popover, Modal } from "antd";
 import moment from "moment";
+import CommentForm from "./CommentForm";
 
 export default class CityDetails extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class CityDetails extends Component {
       deleteComment: {},
       rate: null,
       showMoreCmnt: false,
-      ID: this.props.match.params.id,
+      ID: this.props.match.params.id
     };
   }
   UNSAFE_componentWillMount() {
@@ -44,20 +45,20 @@ export default class CityDetails extends Component {
       this.setState({
         cities: res,
         comments: res.commentByCityId,
-        isLoading: false,
+        isLoading: false
       })
     );
     GetAllUsers().then(res => {
       this.setState({
         allUsers: res.data.users,
-        userImages: res.data.userImages,
+        userImages: res.data.userImages
       });
     });
 
     if (sessionStorage.token || localStorage.token) {
       GetUser().then(res =>
         this.setState({
-          userID: res.data.user.id,
+          userID: res.data.user.id
         })
       );
     }
@@ -65,7 +66,7 @@ export default class CityDetails extends Component {
 
   onCommentChange = e => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -73,12 +74,12 @@ export default class CityDetails extends Component {
     e.preventDefault();
     const { ID, userID, comment } = this.state;
     const commentData = {
-      comment: comment,
+      comment: comment
     };
     CommentFunction(ID, userID, commentData, `/city/${ID}`).catch(err =>
       this.setState({
         cmntStatus: true,
-        cmntError: err.response.data.errors.comment,
+        cmntError: err.response.data.errors.comment
       })
     );
   };
@@ -87,13 +88,13 @@ export default class CityDetails extends Component {
     e.preventDefault();
     const { ID, userID, comment } = this.state;
     const commentData = {
-      comment: comment,
+      comment: comment
     };
     CommentFunctionEdit(e.target.id, userID, commentData, `/city/${ID}`).catch(
       err =>
         this.setState({
           editCmntStatus: true,
-          editCmntError: err.response.data.errors.comment,
+          editCmntError: err.response.data.errors.comment
         })
     );
   };
@@ -102,7 +103,7 @@ export default class CityDetails extends Component {
     e.preventDefault();
     const { ID, userID, rate } = this.state;
     const ratingData = {
-      rate: rate,
+      rate: rate
     };
 
     RatingFunction(ID, userID, ratingData, `/city/${ID}`).catch(err =>
@@ -114,7 +115,7 @@ export default class CityDetails extends Component {
     e.preventDefault();
     const { ID, userID, rate } = this.state;
     const ratingData = {
-      rate: rate,
+      rate: rate
     };
 
     RatingFunctionEdit(
@@ -129,23 +130,23 @@ export default class CityDetails extends Component {
     this.setState(prevState => ({
       editComment: {
         ...prevState.editComment,
-        [id]: !prevState.editComment[id],
-      },
+        [id]: !prevState.editComment[id]
+      }
     }));
 
     this.setState(prevState => ({
       deleteComment: {
         ...prevState.deleteComment,
-        [del]: !prevState.deleteComment[del],
-      },
+        [del]: !prevState.deleteComment[del]
+      }
     }));
   };
   showPopOver = id => {
     this.setState(prevState => ({
       showPopover: {
         ...prevState.showPopover,
-        [id]: !prevState.showPopover[id],
-      },
+        [id]: !prevState.showPopover[id]
+      }
     }));
   };
 
@@ -166,7 +167,7 @@ export default class CityDetails extends Component {
       showPopover,
       rate,
       showMoreCmnt,
-      deleteComment,
+      deleteComment
     } = this.state;
 
     const auth = localStorage.token || sessionStorage.token;
@@ -191,7 +192,7 @@ export default class CityDetails extends Component {
                       process.env.REACT_APP_IMAGEURL
                     }/cover_images/${cities.cityImageByCityId.map(
                       image => image.cover_image
-                    )})`,
+                    )})`
                   }}
                 >
                   <div className="city-bg-overlay"></div>
@@ -227,7 +228,7 @@ export default class CityDetails extends Component {
                   </div>
                 </div>
                 <div className="container-fluid my-3">
-                  <h2>Details</h2>
+                  <h3>Overview</h3>
                   <div className="row mb-3">
                     <div className="col-md-12">
                       <p className="cities-description">
@@ -238,12 +239,12 @@ export default class CityDetails extends Component {
                   {cities.categoryByCityId &&
                     cities.categoryByCityId.length !== 0 && (
                       <>
-                        <h2>
+                        <h3>
                           Things to do in{" "}
                           <span className="text-capitalize">
                             {cities.cityById.city_name}
                           </span>
-                        </h2>
+                        </h3>
                         <div className="row">
                           {cities.categoryByCityId.map((category, index) => {
                             return (
@@ -260,7 +261,7 @@ export default class CityDetails extends Component {
                                           backgroundImage: `url(${process.env
                                             .REACT_APP_IMAGEURL +
                                             "/category_images/" +
-                                            category.category_image})`,
+                                            category.category_image})`
                                         }}
                                       ></div>
                                     </div>
@@ -283,7 +284,7 @@ export default class CityDetails extends Component {
                         </div>
                       </>
                     )}
-                  <div className="row my-3">
+                  <div className="row mb-3 mt-4">
                     <div className="col-md-12" id="reviews">
                       <h3 className="m-0 mb-3">Reviews</h3>
                       <Paper
@@ -291,46 +292,19 @@ export default class CityDetails extends Component {
                         style={{
                           textOverflow: "ellipsis",
                           overflow: "hidden",
-                          wordBreak: "break-all",
+                          wordBreak: "break-all"
                         }}
                         className="p-2"
                       >
                         <div className="row mx-2">
                           {auth && (
-                            <Form
+                            <CommentForm
+                              name="comment"
+                              onChange={this.onCommentChange}
                               onSubmit={this.submitComment}
-                              className="col-md-12"
-                            >
-                              <Form.Item
-                                validateStatus={cmntStatus ? "error" : ""}
-                                help={cmntStatus ? cmntError : ""}
-                                hasFeedback
-                              >
-                                <Input
-                                  prefix={
-                                    <Icon
-                                      type="message"
-                                      style={{ color: "rgba(0,0,0,.25)" }}
-                                    />
-                                  }
-                                  suffix={
-                                    <Button
-                                      type="submit"
-                                      variant="outlined"
-                                      color="primary"
-                                      className="mr-3"
-                                    >
-                                      Submit
-                                    </Button>
-                                  }
-                                  placeholder="Write a review......"
-                                  type="text"
-                                  name="comment"
-                                  onChange={this.onCommentChange}
-                                  size="large"
-                                />
-                              </Form.Item>
-                            </Form>
+                              validateStatus={cmntStatus ? "error" : ""}
+                              help={cmntStatus ? cmntError : ""}
+                            />
                           )}
                           {comments && comments.length !== 0 ? (
                             slicedComments.map(comment => {
@@ -339,7 +313,7 @@ export default class CityDetails extends Component {
                                   className={`col-md-12 py-1 comment-section mt-2`}
                                   key={comment.id}
                                   style={{
-                                    letterSpacing: 1,
+                                    letterSpacing: 1
                                   }}
                                   elevation={0}
                                 >
@@ -385,64 +359,66 @@ export default class CityDetails extends Component {
                                                     .utc(comment.created_at)
                                                     .fromNow()}
                                                 </small>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                {userID === comment.user_id ? (
+                                                  <Popover
+                                                    content={
+                                                      <span className="comment-option">
+                                                        <span
+                                                          onClick={() =>
+                                                            this.showEditModal(
+                                                              comment.id,
+                                                              0
+                                                            )
+                                                          }
+                                                        >
+                                                          <i className="fa fa-edit"></i>{" "}
+                                                          &nbsp; Edit....
+                                                        </span>{" "}
+                                                        <br />
+                                                        <span
+                                                          onClick={() =>
+                                                            this.showEditModal(
+                                                              0,
+                                                              comment.id
+                                                            )
+                                                          }
+                                                        >
+                                                          <i className="fa fa-trash"></i>{" "}
+                                                          &nbsp; Delete....
+                                                        </span>
+                                                      </span>
+                                                    }
+                                                    trigger="click"
+                                                    visible={
+                                                      !showPopover[comment.id]
+                                                        ? false
+                                                        : true
+                                                    }
+                                                    onVisibleChange={() =>
+                                                      this.showPopOver(
+                                                        comment.id
+                                                      )
+                                                    }
+                                                  >
+                                                    <Tooltip
+                                                      placement="top"
+                                                      title={
+                                                        "Edit or Delete this comment."
+                                                      }
+                                                    >
+                                                      <i className="fa fa-ellipsis-h"></i>
+                                                    </Tooltip>
+                                                  </Popover>
+                                                ) : (
+                                                  ""
+                                                )}
                                               </span>
                                             );
                                           })}
                                       </span>
                                       <br />
                                       {comment.comment}
-                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                      {userID === comment.user_id ? (
-                                        <Popover
-                                          content={
-                                            <span className="comment-option">
-                                              <span
-                                                onClick={() =>
-                                                  this.showEditModal(
-                                                    comment.id,
-                                                    0
-                                                  )
-                                                }
-                                              >
-                                                <i className="fa fa-edit"></i>{" "}
-                                                &nbsp; Edit....
-                                              </span>{" "}
-                                              <br />
-                                              <span
-                                                onClick={() =>
-                                                  this.showEditModal(
-                                                    0,
-                                                    comment.id
-                                                  )
-                                                }
-                                              >
-                                                <i className="fa fa-trash"></i>{" "}
-                                                &nbsp; Delete....
-                                              </span>
-                                            </span>
-                                          }
-                                          trigger="click"
-                                          visible={
-                                            !showPopover[comment.id]
-                                              ? false
-                                              : true
-                                          }
-                                          onVisibleChange={() =>
-                                            this.showPopOver(comment.id)
-                                          }
-                                        >
-                                          <Tooltip
-                                            placement="top"
-                                            title={
-                                              "Edit or Delete this comment."
-                                            }
-                                          >
-                                            <i className="fa fa-ellipsis-h"></i>
-                                          </Tooltip>
-                                        </Popover>
-                                      ) : (
-                                        ""
-                                      )}
                                     </span>
                                   </div>
                                   <Modal
@@ -554,8 +530,14 @@ export default class CityDetails extends Component {
                               );
                             })
                           ) : (
-                            <span className="mx-3">
-                              No Comments posted yet.
+                            <span className="mx-3" style={{ fontSize: 20 }}>
+                              No Reviews posted yet.
+                              <br />
+                              {localStorage.token || sessionStorage.token ? (
+                                <small>Post a review.</small>
+                              ) : (
+                                <small>Login to post a review.</small>
+                              )}
                             </span>
                           )}
                           {comments.length > 4 ? (
@@ -565,7 +547,7 @@ export default class CityDetails extends Component {
                               variant="contained"
                               onClick={() =>
                                 this.setState({
-                                  showMoreCmnt: !showMoreCmnt,
+                                  showMoreCmnt: !showMoreCmnt
                                 })
                               }
                               className="mt-2"

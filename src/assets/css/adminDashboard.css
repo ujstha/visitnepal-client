@@ -2,3 +2,37 @@
 .admin-dashboard h4 {
   color: whitesmoke;
 }
+input[type="file"] {
+  display: none;
+}
+.file-upload-button {
+  display: block;
+  max-width: 100%;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px 11px;
+  color: black;
+  font-size: 14px;
+  line-height: 2;
+  background-color: transparent;
+  border: 1px solid #d9d9d9;
+}
+.file-upload-button:hover {
+  border-color: #1890ff;
+  transition: 0.2s ease-in border-color;
+}
+.file-upload-button .file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.manage-description {
+  width: 250px !important;
+  max-width: 250px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.actions .MuiButton-root {
+  padding: 5px !important;
+}

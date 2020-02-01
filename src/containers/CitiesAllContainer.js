@@ -8,7 +8,6 @@ export default class CitiesAllContainer extends Component {
     this.state = {
       cities: [],
       cityImages: [],
-      cityCategories: [],
       isLoading: true,
     };
   }
@@ -16,20 +15,18 @@ export default class CitiesAllContainer extends Component {
     GetCities().then(cities =>
       this.setState({
         cities: cities.city,
-        cityCategories: cities.category,
         cityImages: cities.city_image,
         isLoading: false,
       })
     );
   }
   render() {
-    const { isLoading, cities, cityCategories, cityImages } = this.state;
+    const { isLoading, cities, cityImages } = this.state;
     return (
       <CitiesAll
         isLoading={isLoading}
         cityImages={cityImages}
         cities={cities}
-        cityCategories={cityCategories}
       />
     );
   }

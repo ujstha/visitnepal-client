@@ -18,7 +18,7 @@ export default class DashboardContainer extends Component {
       GetUser().then(res => {
         console.log(res);
         this.setState({
-          userName: res
+          userName: res.data.user.username
         });
         GetUserDetails(res).then(res =>
           this.setState({

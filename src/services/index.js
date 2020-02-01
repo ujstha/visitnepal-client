@@ -1,6 +1,14 @@
 import { Loader, CircularLoader, SimpleLoader } from "./Loader";
 import { Toast } from "./Toast";
-import { UserFunction, logOut } from "./UserFunction";
+import { UserFunction, ResetPassword, logOut } from "./UserFunction";
+import {
+  CitiesFunction,
+  AddCityImage,
+  EditCities,
+  EditCityImage,
+  DeleteCity,
+  DeleteImage
+} from "./CitiesFunction";
 import {
   GetUser,
   GetAllUsers,
@@ -8,29 +16,42 @@ import {
   GetUserDetails,
   GetUserImages,
   GetAllUserDetails,
-  GetAllUserImages,
+  GetAllUserImages
 } from "./UserData";
 import {
   GetCities,
-  GetCategories,
   GetCitiesImages,
   GetCityById,
-  GetCategoryByCityId,
   GetImageByCityId,
   GetRatingByCityId,
   GetAvgRatingByCityId,
-  GetCommentByCityId,
+  GetCommentByCityId
 } from "./CitiesData";
 import {
   CommentFunction,
   CommentFunctionEdit,
   DeleteComment,
+  DeleteAllComment
 } from "./CommentFunction";
 import { RatingFunction, RatingFunctionEdit } from "./RatingFunction";
+import {
+  SlidesFunction,
+  GetSlides,
+  GetSlideById,
+  EditSlides,
+  DeleteSlide
+} from "./SlidesFunction";
 
 export {
   logOut,
   UserFunction,
+  ResetPassword,
+  CitiesFunction,
+  AddCityImage,
+  EditCities,
+  EditCityImage,
+  DeleteCity,
+  DeleteImage,
   Toast,
   Loader,
   CircularLoader,
@@ -43,10 +64,8 @@ export {
   GetAllUserDetails,
   GetAllUserImages,
   GetCities,
-  GetCategories,
   GetCitiesImages,
   GetCityById,
-  GetCategoryByCityId,
   GetImageByCityId,
   GetRatingByCityId,
   GetAvgRatingByCityId,
@@ -54,6 +73,12 @@ export {
   CommentFunction,
   CommentFunctionEdit,
   DeleteComment,
+  DeleteAllComment,
   RatingFunction,
   RatingFunctionEdit,
+  SlidesFunction,
+  GetSlides,
+  GetSlideById,
+  EditSlides,
+  DeleteSlide
 };

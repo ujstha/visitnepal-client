@@ -55,7 +55,7 @@ export default withRouter(
                       : ""
                   }`}
                 >
-                  Register/Login
+                  Login
                 </a>
               </li>
             </ul>

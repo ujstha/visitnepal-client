@@ -46,7 +46,6 @@ export default class City extends Component {
                                 color="primary"
                                 variant="contained"
                                 style={{ borderRadius: 0, marginTop: 10 }}
-                                fullWidth
                               >
                                 Read More
                               </Button>

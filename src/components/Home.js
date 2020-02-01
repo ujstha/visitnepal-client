@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
 import { Loader } from "../services";
 import SliderContainer from "../containers/SliderContainer";
-import Category from "./Category";
 import City from "./City";
 import "../assets/css/home.css";
 
@@ -19,7 +18,6 @@ export default withStyles(styles)(
       const {
         isLoading,
         cities,
-        cityCategories,
         classes,
       } = this.props;
       return (
@@ -33,10 +31,6 @@ export default withStyles(styles)(
                 <City
                   className={classes.media}
                   cities={cities}
-                />
-                <Category
-                  className={classes.media}
-                  cityCategories={cityCategories}
                 />
               </div>
             </div>

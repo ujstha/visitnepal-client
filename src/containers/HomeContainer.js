@@ -24,7 +24,6 @@ export default class HomeContainer extends Component {
       <Home
         isLoading={isLoading}
         cities={cities}
-        cityCategories={cities.category}
       />
     );
   }

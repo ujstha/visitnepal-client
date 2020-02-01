@@ -130,7 +130,7 @@ export default withRouter(
                         color={path === "/auth" ? "primary" : "inherit"}
                         variant={path === "/auth" ? "contained" : "text"}
                       >
-                        Register / Login
+                        Login
                       </Button>
                     </NavLink>
                   </NavItem>

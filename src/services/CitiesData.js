@@ -8,12 +8,6 @@ export function GetCities() {
   });
 }
 
-export function GetCategories() {
-  return axios.get(`${API}/categories/all`).then(categories => {
-    return categories.data;
-  });
-}
-
 export function GetCitiesImages() {
   return axios.get(`${API}/city/images/all`).then(images => {
     return images.data;
@@ -23,12 +17,6 @@ export function GetCitiesImages() {
 export function GetCityById(id) {
   return axios.get(`${API}/cities/${id}`).then(city => {
     return city.data;
-  });
-}
-
-export function GetCategoryByCityId(id) {
-  return axios.get(`${API}/categories/with_city=${id}`).then(category => {
-    return category.data;
   });
 }
 

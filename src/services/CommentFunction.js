@@ -51,3 +51,9 @@ export function DeleteComment(comment_id, by_user, location) {
       return res;
     });
 }
+
+export function DeleteAllComment(city_id, location) {
+  return axios.delete(
+    `${process.env.REACT_APP_BASEURL + "/delete/allcomment/city_id=" + city_id}`
+  );
+}

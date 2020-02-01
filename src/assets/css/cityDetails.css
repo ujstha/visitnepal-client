@@ -3,9 +3,14 @@
   width: 100%;
   position: relative;
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+.city-details-wrapper h3 {
+  font-weight: bold;
+  font-family: "Montserrat", "Raleway", sans-serif;
+  font-size: 1.5em;
 }
 .city-bg-overlay {
   position: absolute;
@@ -54,7 +59,7 @@
   font-size: 16px;
 }
 .cities-description {
-  font-size: 20px;
+  font-size: 16px;
 }
 p.cities-description::first-letter,
 p.category-detail::first-letter {
