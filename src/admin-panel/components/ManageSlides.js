@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
-import { Icon } from "antd";
-import { DeleteSlide } from "../../services";
+import { Icon, Select } from "antd";
+import { DeleteSlide, UpdateSlideStatus } from "../../services";
 
 export default class ManagePlaces extends Component {
+  onSubmit = (id, data) => {
+    UpdateSlideStatus(id, data).then(res => console.log(res.data));
+  };
   render() {
     const { slides } = this.props;
     return (
@@ -56,7 +59,17 @@ export default class ManagePlaces extends Component {
                         {slide.link}
                       </a>
                     </td>
-                    <td>{slide.status}</td>
+                    <td>
+                      <Select
+                        defaultValue={slide.status}
+                        onChange={value => {
+                          this.onSubmit(slide.id, value);
+                        }}
+                      >
+                        <Select.Option value="active">Active</Select.Option>
+                        <Select.Option value="inactive">Inactive</Select.Option>
+                      </Select>
+                    </td>
                     <td className="actions">
                       <Button
                         variant="contained"
@@ -105,13 +118,13 @@ export default class ManagePlaces extends Component {
             <hr />
             <h5 className="mt-3">
               <b>
-                <i className="fa fa-landmark"></i> &nbsp; Manage Slides
+                <i className="fa fa-list-alt"></i> &nbsp; Manage Slides
               </b>
             </h5>
             <h3 className="text-dark">No slides were found on the database.</h3>
             <Button
               variant="outlined"
-              onClick={() => (document.location.href = "/add/slides")}
+              onClick={() => (document.location.href = "/add/sliders")}
             >
               Add New Slides
             </Button>

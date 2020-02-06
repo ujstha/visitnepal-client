@@ -44,7 +44,6 @@ export default class AddSliders extends Component {
             <Radio.Group
               name={status}
               onChange={onChange}
-              defaultValue="active"
             >
               <Radio value="active">Active</Radio>
               <Radio value="inactive">Inactive</Radio>

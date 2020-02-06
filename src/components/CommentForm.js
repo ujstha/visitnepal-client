@@ -6,7 +6,7 @@ export default class CommentForm extends Component {
   render() {
     const { onSubmit, validateStatus, help, onChange, name } = this.props;
     return (
-      <Form onSubmit={onSubmit} className="col-md-12">
+      <Form onSubmit={onSubmit} className="w-100 mt-3">
         <Form.Item validateStatus={validateStatus} help={help} hasFeedback>
           <Input
             prefix={
@@ -19,7 +19,7 @@ export default class CommentForm extends Component {
                 color="primary"
                 className="mr-3"
               >
-                Submit
+                Comment
               </Button>
             }
             placeholder="Write a review......"

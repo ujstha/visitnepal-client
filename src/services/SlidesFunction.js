@@ -20,6 +20,14 @@ export function SlidesFunction(slidesData) {
   });
 }
 
+export function UpdateSlideStatus(id, data) {
+  return axios
+    .post(`${process.env.REACT_APP_BASEURL + "/reset/status/" + id + "/" + data}`)
+    .then(res => {
+      return res;
+    });
+}
+
 export function EditSlides(editSlideId, slidesData) {
   return axios
     .post(`${API + "/update/slide/with_id=" + editSlideId}`, slidesData)

@@ -1,6 +1,13 @@
 import { Loader, CircularLoader, SimpleLoader } from "./Loader";
 import { Toast } from "./Toast";
-import { UserFunction, ResetPassword, logOut } from "./UserFunction";
+import {
+  UserFunction,
+  ResetPassword,
+  ResetRole,
+  UploadImage,
+  UpdateImage,
+  logOut
+} from "./UserFunction";
 import {
   CitiesFunction,
   AddCityImage,
@@ -11,6 +18,7 @@ import {
 } from "./CitiesFunction";
 import {
   GetUser,
+  GetUserById,
   GetAllUsers,
   GetUserRole,
   GetUserDetails,
@@ -33,9 +41,14 @@ import {
   DeleteComment,
   DeleteAllComment
 } from "./CommentFunction";
-import { RatingFunction, RatingFunctionEdit } from "./RatingFunction";
+import {
+  GetRating,
+  RatingFunction,
+  RatingFunctionEdit
+} from "./RatingFunction";
 import {
   SlidesFunction,
+  UpdateSlideStatus,
   GetSlides,
   GetSlideById,
   EditSlides,
@@ -44,8 +57,12 @@ import {
 
 export {
   logOut,
+  GetUserById,
   UserFunction,
+  UploadImage,
+  UpdateImage,
   ResetPassword,
+  ResetRole,
   CitiesFunction,
   AddCityImage,
   EditCities,
@@ -74,9 +91,11 @@ export {
   CommentFunctionEdit,
   DeleteComment,
   DeleteAllComment,
+  GetRating,
   RatingFunction,
   RatingFunctionEdit,
   SlidesFunction,
+  UpdateSlideStatus,
   GetSlides,
   GetSlideById,
   EditSlides,

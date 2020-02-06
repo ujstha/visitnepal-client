@@ -24,9 +24,45 @@ export function UserFunction(type, userData) {
     });
 }
 
+export function UpdateImage(id, userId, image) {
+  return axios
+    .post(
+      `${process.env.REACT_APP_BASEURL +
+        "/user/update/images/with_id=" +
+        id +
+        "/with_user=" +
+        userId}`,
+      image
+    )
+    .then(res => {
+      return res;
+    });
+}
+
+export function UploadImage(userId, image) {
+  return axios
+    .post(
+      `${process.env.REACT_APP_BASEURL +
+        "/user/add/images/with_user=" +
+        userId}`,
+      image
+    )
+    .then(res => {
+      return res;
+    });
+}
+
 export function ResetPassword(email, passData) {
   return axios
     .post(`${process.env.REACT_APP_BASEURL + "/reset/" + email}`, passData)
+    .then(res => {
+      return res;
+    });
+}
+
+export function ResetRole(id, data) {
+  return axios
+    .post(`${process.env.REACT_APP_BASEURL + "/reset/role/" + id + "/" + data}`)
     .then(res => {
       return res;
     });

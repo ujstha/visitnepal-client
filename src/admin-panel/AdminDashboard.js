@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Loader, GetCities, GetSlides } from "../services";
+import { Loader, GetCities, GetSlides, GetAllUsers } from "../services";
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
 import axios from "axios";
@@ -8,6 +8,7 @@ import Helmet from "react-helmet";
 import CountedData from "./components/CountedData";
 import ManagePlaces from "./components/ManagePlaces";
 import ManageSlides from "./components/ManageSlides";
+import ManageUsers from "./components/ManageUsers";
 
 export default class AdminDashboard extends Component {
   constructor(props) {
@@ -15,6 +16,8 @@ export default class AdminDashboard extends Component {
     this.state = {
       showSidebar: false,
       count: {},
+      users: [],
+      usersImages: [],
       cities: [],
       citiesImages: [],
       slides: []
@@ -27,6 +30,12 @@ export default class AdminDashboard extends Component {
         count: res.data
       })
     );
+    GetAllUsers().then(res => {
+      this.setState({
+        users: res.data.users,
+        usersImages: res.data.userImages
+      });
+    });
     GetCities().then(res => {
       this.setState({
         cities: res.city,
@@ -46,7 +55,15 @@ export default class AdminDashboard extends Component {
   };
   render() {
     const { isLoading } = this.props;
-    const { showSidebar, cities, citiesImages, slides, count } = this.state;
+    const {
+      showSidebar,
+      users,
+      usersImages,
+      cities,
+      citiesImages,
+      slides,
+      count
+    } = this.state;
     const { pathname } = this.props.location;
     return (
       <div>
@@ -81,6 +98,9 @@ export default class AdminDashboard extends Component {
                 </a>
               </header>
               <CountedData count={count} />
+              {(pathname === "/manage/users" || pathname === "/dashboard") && (
+                <ManageUsers users={users} usersImages={usersImages} />
+              )}
               {(pathname === "/manage/places" || pathname === "/dashboard") && (
                 <ManagePlaces cities={cities} citiesImages={citiesImages} />
               )}

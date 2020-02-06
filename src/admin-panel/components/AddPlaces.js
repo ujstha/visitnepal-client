@@ -59,11 +59,12 @@ export default class AddPlaces extends Component {
             />
           </Form.Item>
           <Form.Item>
-            <Input
+            <Input.TextArea
               placeholder="Description *"
               type="text"
               name={description}
               onChange={onChange}
+              rows={4}
             />
           </Form.Item>
           <label htmlFor="file-upload" className="file-upload-button mt-2 mb-0">

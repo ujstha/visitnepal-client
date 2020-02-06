@@ -39,6 +39,7 @@ JSON.parse(localStorage.isAdmin) === null ? (
     <Route exact path="/"  component={() => <Redirect to="/dashboard" />}></Route>
     <Route exact path="/dashboard" component={AdminDashboard}></Route>
     <Route exact path="/settings" component={AdminSettingsContainer}></Route>
+    <Route exact path="/manage/users" component={AdminDashboard}></Route>
     <Route exact path="/manage/places" component={AdminDashboard}></Route>
     <Route exact path="/manage/slides" component={AdminDashboard}></Route>
     <Route exact path="/admin" component={Event}></Route>

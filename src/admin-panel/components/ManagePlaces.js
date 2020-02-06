@@ -26,6 +26,9 @@ export default class ManagePlaces extends Component {
                   <th scope="col">City</th>
                   <th scope="col">Category</th>
                   <th scope="col">Description</th>
+                  <th scope="col">Views</th>
+                  <th scope="col">Ratings</th>
+                  <th scope="col">Reviews</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -56,6 +59,9 @@ export default class ManagePlaces extends Component {
                     <td>{city.city_name}</td>
                     <td>{city.category}</td>
                     <td className="manage-description">{city.description}</td>
+                    <td>{city.visit_count}</td>
+                    <td>{city.rating_count}</td>
+                    <td>{city.comment_count}</td>
                     <td className="actions">
                       <Button
                         variant="contained"

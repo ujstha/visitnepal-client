@@ -1,0 +1,105 @@
+.user-dashboard {
+  width: 80%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.user-dashboard .profile-bg-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center;
+}
+.user-dashboard .profile-bg-overlay {
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0px;
+  left: 0px;
+  height: 280px;
+}
+.user-dashboard .profile-image {
+  min-height: 600px;
+  border: 1px solid grey;
+}
+.user-dashboard .profile-img-rounded-container {
+  position: absolute;
+  bottom: -100px;
+  left: 10%;
+}
+.profile-img-rounded {
+  height: 120px;
+  width: 120px;
+  border: 4px solid white;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  object-fit: cover;
+}
+.img-round:hover,
+.profile-img-rounded-overlay {
+  cursor: pointer;
+  width: 120px;
+}
+.profile-img-rounded-overlay {
+  display: none;
+  position: absolute;
+  width: 120px;
+  height: 60px;
+  border-bottom-right-radius: 40px;
+  border: 4px solid white;
+  border-top: 0px;
+  background-color: rgba(0, 0, 0, 0.6);
+  bottom: 0;
+  left: 0;
+}
+.img-round:hover .profile-img-rounded-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.basic-info-table tbody tr th, .contact-info-table tbody tr th {
+  padding-right: 60px !important;
+}
+.basic-info-table tbody tr td, .contact-info-table tbody tr td {
+  padding-left: 60px !important;
+}
+.pswp-thumbnails {
+  display: flex !important;
+  flex-wrap: wrap;
+}
+.pswp-thumbnail {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.pswp-thumbnail img {
+  width: 220px;
+  height: 150px;
+  object-fit: cover;
+}
+.ant-tabs.ant-tabs-top.ant-tabs-line {
+  margin-bottom: 10px;
+}
+img.pswp__img {
+  object-fit: contain;
+}
+@media only screen and (max-width: 767px) {
+  .user-dashboard {
+    width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .user-dashboard .profile-image {
+    min-height: 400px;
+  }
+  .profile-bg-img,
+  .profile-bg-overlay {
+    height: 200px !important;
+  }
+  .pswp-thumbnail {
+    width: calc(50% - 10px);
+  }
+  .pswp-thumbnail img {
+    width: 100%;
+  }
+}

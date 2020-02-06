@@ -14,6 +14,11 @@ export function GetUser() {
     });
 }
 
+export function GetUserById(id) {
+  return axios.get(`${API}/user/`+id).then(userById => {
+    return userById;
+  })
+}
 export function GetUserRole() {
   return GetUser().then(user => {
     if (user.data && (sessionStorage.token || localStorage.token)) {

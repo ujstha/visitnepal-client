@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardMedia, Button } from "@material-ui/core";
+import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import "../assets/css/home.css";
 import { CircularLoader } from "../services";
@@ -11,29 +11,46 @@ const card = (cityImages, city, className, height) => (
       {cityImages
         .filter(image => city.id === image.city_id)
         .map((image, index) => (
-          <CardMedia
-            component="img"
-            alt={city.city_name}
-            className={className}
-            height={height}
-            image={
-              `${process.env.REACT_APP_IMAGEURL}/cover_images/` +
-              image.cover_image
-            }
-            title={city.city_name}
-            key={index}
-          />
+          <div style={{ height: height, overflow: "hidden" }}>
+            <CardMedia
+              component="img"
+              alt={city.city_name}
+              className={className}
+              height={height}
+              image={
+                `${process.env.REACT_APP_IMAGEURL}/cover_images/` +
+                image.cover_image
+              }
+              title={city.city_name}
+              key={index}
+              style={{ objectFit: "cover" }}
+            />
+          </div>
         ))}
-      <div className="card-overlay">
-        <h4>{city.city_name}</h4>
-        <Button
-          size="medium"
-          color="primary"
-          variant="contained"
-          style={{ borderRadius: 0, marginTop: 10 }}
+      <div className="p-3">
+        <Typography
+          className="clearfix"
+          gutterBottom
+          variant="h5"
+          component="h2"
         >
-          Read More
-        </Button>
+          <span className="float-left">{city.place}</span>
+          <span className="float-right text-secondary" style={{ fontSize: 12 }}>
+            &nbsp; &nbsp;<i className="fa fa-star"></i>&nbsp;
+            {city.rating_count.toFixed(1)}
+          </span>
+          <span className="float-right text-secondary" style={{ fontSize: 12 }}>
+            <i className="fa fa-comments"></i>&nbsp;{city.comment_count}
+          </span>
+        </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          className="cities-description"
+          component="p"
+        >
+          {city.description}
+        </Typography>
       </div>
     </CardContent>
   </Card>
@@ -45,25 +62,43 @@ export default class CitiesAll extends Component {
     return (
       <>
         <Helmet>
-          <title>Cities - Places to visit in Nepal | VisitNepal</title>
+          <title>Cities - Destinations to visit in Nepal | VisitNepal</title>
         </Helmet>
         {isLoading ? (
           CircularLoader(isLoading)
         ) : cities && cities.length !== 0 ? (
-          <div className="py-4 home-page container-fluid">
-            <h1 className="MuiPaper-root MuiPaper-elevation15 text-center bg-dark text-light p-2">
-              Places to visit in Nepal
-            </h1>
-            <div className="row">
-              {cities.map((city, index) => {
-                return (
-                  <div className="col-md-6 col-lg-4 col-xl-4 mt-4" key={index}>
-                    <Link to={`/city/${city.id}`}>
-                      {card(cityImages, city, className, "250px")}
-                    </Link>
-                  </div>
-                );
-              })}
+          <div className="home-page">
+            <div className="MuiPaper-root text-left bg-secondary text-light p-2">
+              <div
+                className="container-fluid clearfix"
+                style={{ fontSize: 18 }}
+              >
+                <span className="float-left">
+                  Destinations to visit in Nepal
+                </span>
+                <span className="float-right" style={{ fontSize: 15 }}>
+                  <a className="text-light" href="/">
+                    Home
+                  </a>{" "}
+                  / <span className="text-warning">Cities</span>
+                </span>
+              </div>
+            </div>
+            <div className="container-fluid">
+              <div className="row">
+                {cities.map((city, index) => {
+                  return (
+                    <div
+                      className="col-md-6 col-lg-4 col-xl-4 mt-4"
+                      key={index}
+                    >
+                      <Link to={`/city/${city.id}`}>
+                        {card(cityImages, city, className, "220px")}
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         ) : (

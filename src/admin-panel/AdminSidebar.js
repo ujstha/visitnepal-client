@@ -37,6 +37,13 @@ export default withRouter(
               <i className="fa fa-home fa-fw"></i>  Overview
             </a>
             <a
+              href="/manage/users"
+              className={`w3-bar-item w3-button w3-padding ${pathname ===
+                "/manage/users" && "w3-blue"}`}
+            >
+              <i className="fa fa-user fa-fw"></i>  Users
+            </a>
+            <a
               href="/manage/places"
               className={`w3-bar-item w3-button w3-padding ${pathname ===
                 "/manage/places" && "w3-blue"}`}

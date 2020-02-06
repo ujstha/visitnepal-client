@@ -1,5 +1,15 @@
 import axios from "axios";
 
+export function GetRating(on_city) {
+  return axios
+    .get(
+      `${process.env.REACT_APP_BASEURL + "/ratings/with_city_id=" + on_city}`
+    )
+    .then(res => {
+      return res;
+    });
+}
+
 export function RatingFunction(on_city, by_user, ratingData, location) {
   return axios
     .post(

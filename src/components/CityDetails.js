@@ -9,13 +9,16 @@ import {
   CommentFunctionEdit,
   RatingFunction,
   RatingFunctionEdit,
-  DeleteComment
+  DeleteComment,
+  GetRating,
+  GetRatingByCityId
 } from "../services";
 import "../assets/css/cityDetails.css";
 import { Paper, Button } from "@material-ui/core";
 import { Form, Input, Tooltip, Popover, Modal } from "antd";
 import moment from "moment";
 import CommentForm from "./CommentForm";
+import Ratings from "./Ratings";
 
 export default class CityDetails extends Component {
   constructor(props) {
@@ -23,6 +26,8 @@ export default class CityDetails extends Component {
     this.state = {
       cities: {},
       comments: [],
+      ratings: [],
+      rated: "",
       isLoading: true,
       comment: "",
       cmntError: "",
@@ -33,7 +38,6 @@ export default class CityDetails extends Component {
       showPopover: {},
       editComment: {},
       deleteComment: {},
-      rate: null,
       showMoreCmnt: false,
       ID: this.props.match.params.id
     };
@@ -41,12 +45,16 @@ export default class CityDetails extends Component {
   UNSAFE_componentWillMount() {
     const cityID = this.state.ID;
 
-    GetCityById(cityID).then(res =>
+    GetCityById(cityID).then(res => {
       this.setState({
         cities: res,
         comments: res.commentByCityId,
         isLoading: false
-      })
+      });
+      console.log(res);
+    });
+    GetRating(this.props.match.params.id).then(res =>
+      this.setState({ ratings: res.data })
     );
     GetAllUsers().then(res => {
       this.setState({
@@ -56,11 +64,13 @@ export default class CityDetails extends Component {
     });
 
     if (sessionStorage.token || localStorage.token) {
-      GetUser().then(res =>
+      GetUser().then(res => {
         this.setState({
-          userID: res.data.user.id
-        })
-      );
+          userID: res.data.user.id,
+          rated: res.data.user.ratedCity
+        });
+        console.log(res);
+      });
     }
   }
 
@@ -99,11 +109,17 @@ export default class CityDetails extends Component {
     );
   };
 
-  submitRating = e => {
-    e.preventDefault();
-    const { ID, userID, rate } = this.state;
+  getRating = () => {
+    GetRatingByCityId(this.state.ID).then(res => {
+      this.setState({
+        ratings: res
+      });
+    });
+  };
+  submitRating = value => {
+    const { ID, userID } = this.state;
     const ratingData = {
-      rate: rate
+      rating: value
     };
 
     RatingFunction(ID, userID, ratingData, `/city/${ID}`).catch(err =>
@@ -111,19 +127,15 @@ export default class CityDetails extends Component {
     );
   };
 
-  editRating = e => {
-    e.preventDefault();
-    const { ID, userID, rate } = this.state;
+  editRating = (value, rateID) => {
+    const { ID, userID } = this.state;
     const ratingData = {
-      rate: rate
+      rating: value
     };
 
-    RatingFunctionEdit(
-      e.target.id,
-      userID,
-      ratingData,
-      `/city/${ID}`
-    ).catch(err => console.log(err.response));
+    RatingFunctionEdit(rateID, userID, ratingData, `/city/${ID}`).catch(err =>
+      console.log(err.response)
+    );
   };
 
   showEditModal = (id, del) => {
@@ -154,6 +166,7 @@ export default class CityDetails extends Component {
     const {
       ID,
       userID,
+      rated,
       cities,
       comments,
       isLoading,
@@ -165,7 +178,7 @@ export default class CityDetails extends Component {
       editCmntStatus,
       editComment,
       showPopover,
-      rate,
+      ratings,
       showMoreCmnt,
       deleteComment
     } = this.state;
@@ -191,7 +204,7 @@ export default class CityDetails extends Component {
                     backgroundImage: `url(${
                       process.env.REACT_APP_IMAGEURL
                     }/cover_images/${cities.cityImageByCityId.map(
-                      image => image.cover_image
+                      (image, index) => index === 0 && image.cover_image
                     )})`
                   }}
                 >
@@ -228,14 +241,24 @@ export default class CityDetails extends Component {
                   </div>
                 </div>
                 <div className="container-fluid my-3">
-                  <h3>Overview</h3>
-                  <div className="row mb-3">
-                    <div className="col-md-12">
-                      <p className="cities-description">
-                        {cities.cityById.description}
-                      </p>
+                  <Paper
+                    elevation={2}
+                    style={{
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      wordBreak: "break-all"
+                    }}
+                    className="p-2 px-4"
+                  >
+                    <h3 className="my-3">Overview</h3>
+                    <div className="row mb-3">
+                      <div className="col-md-12">
+                        <p className="cities-description">
+                          {cities.cityById.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </Paper>
                   {cities.categoryByCityId &&
                     cities.categoryByCityId.length !== 0 && (
                       <>
@@ -284,28 +307,19 @@ export default class CityDetails extends Component {
                         </div>
                       </>
                     )}
-                  <div className="row mb-3 mt-4">
-                    <div className="col-md-12" id="reviews">
-                      <h3 className="m-0 mb-3">Reviews</h3>
+                  <div className="row mb-3">
+                    <div className="col-md-8 mt-3" id="reviews">
                       <Paper
-                        elevation={5}
+                        elevation={2}
                         style={{
                           textOverflow: "ellipsis",
                           overflow: "hidden",
                           wordBreak: "break-all"
                         }}
-                        className="p-2"
+                        className="p-2 px-4"
                       >
-                        <div className="row mx-2">
-                          {auth && (
-                            <CommentForm
-                              name="comment"
-                              onChange={this.onCommentChange}
-                              onSubmit={this.submitComment}
-                              validateStatus={cmntStatus ? "error" : ""}
-                              help={cmntStatus ? cmntError : ""}
-                            />
-                          )}
+                        <h3 className="my-3">Reviews</h3>
+                        <div className="row">
                           {comments && comments.length !== 0 ? (
                             slicedComments.map(comment => {
                               return (
@@ -350,7 +364,7 @@ export default class CityDetails extends Component {
                                             return (
                                               <span key={index}>
                                                 <a
-                                                  href={`/user_username=${user.username}.${comment.user_id}`}
+                                                  href={`/${user.username}-${comment.user_id}`}
                                                 >
                                                   {user.username}{" "}
                                                 </a>
@@ -540,6 +554,15 @@ export default class CityDetails extends Component {
                               )}
                             </span>
                           )}
+                          {auth && (
+                            <CommentForm
+                              name="comment"
+                              onChange={this.onCommentChange}
+                              onSubmit={this.submitComment}
+                              validateStatus={cmntStatus ? "error" : ""}
+                              help={cmntStatus ? cmntError : ""}
+                            />
+                          )}
                           {comments.length > 4 ? (
                             <Button
                               fullWidth
@@ -569,6 +592,16 @@ export default class CityDetails extends Component {
                           )}
                         </div>
                       </Paper>
+                    </div>
+                    <div className="col-md-4 mt-3">
+                      <Ratings
+                        rated={rated}
+                        ratings={ratings}
+                        cities={cities}
+                        userID={userID}
+                        onChange={this.submitRating}
+                        onEditChange={this.editRating}
+                      />
                     </div>
                   </div>
                 </div>

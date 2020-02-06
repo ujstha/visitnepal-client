@@ -141,11 +141,10 @@ export default withStyles(styles)(
               showAlert: true,
               errorMessage: res.data.message,
               alertColor: "success",
+              isFetching: false,
+              signUp: false
             });
           }
-          this.setState({
-            isFetching: false
-          });
         })
         .catch(err => {
           if (!signUp) {

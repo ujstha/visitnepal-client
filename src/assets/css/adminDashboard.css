@@ -2,6 +2,9 @@
 .admin-dashboard h4 {
   color: whitesmoke;
 }
+.admin-dashboard h6 {
+  font-family: "Raleway";
+}
 input[type="file"] {
   display: none;
 }
