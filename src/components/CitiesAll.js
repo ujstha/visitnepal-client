@@ -4,6 +4,7 @@ import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import "../assets/css/home.css";
 import { CircularLoader } from "../services";
+import { Empty } from "antd";
 
 const card = (cityImages, city, className, height) => (
   <Card style={{ borderRadius: 0 }} elevation={10} key={city.id}>
@@ -11,7 +12,7 @@ const card = (cityImages, city, className, height) => (
       {cityImages
         .filter(image => city.id === image.city_id)
         .map((image, index) => (
-          <div style={{ height: height, overflow: "hidden" }}>
+          <div key={index} style={{ height: height, overflow: "hidden" }}>
             <CardMedia
               component="img"
               alt={city.city_name}
@@ -22,7 +23,6 @@ const card = (cityImages, city, className, height) => (
                 image.cover_image
               }
               title={city.city_name}
-              key={index}
               style={{ objectFit: "cover" }}
             />
           </div>
@@ -37,7 +37,7 @@ const card = (cityImages, city, className, height) => (
           <span className="float-left">{city.place}</span>
           <span className="float-right text-secondary" style={{ fontSize: 12 }}>
             &nbsp; &nbsp;<i className="fa fa-star"></i>&nbsp;
-            {city.rating_count.toFixed(1)}
+            {city.rating_count}
           </span>
           <span className="float-right text-secondary" style={{ fontSize: 12 }}>
             <i className="fa fa-comments"></i>&nbsp;{city.comment_count}
@@ -74,7 +74,7 @@ export default class CitiesAll extends Component {
                 style={{ fontSize: 18 }}
               >
                 <span className="float-left">
-                  Destinations to visit in Nepal
+                  Destinations in Nepal
                 </span>
                 <span className="float-right" style={{ fontSize: 15 }}>
                   <a className="text-light" href="/">
@@ -89,7 +89,7 @@ export default class CitiesAll extends Component {
                 {cities.map((city, index) => {
                   return (
                     <div
-                      className="col-md-6 col-lg-4 col-xl-4 mt-4"
+                      className="col-md-6 col-sm-6 col-lg-4 col-xl-4 mt-4"
                       key={index}
                     >
                       <Link to={`/city/${city.id}`}>
@@ -102,9 +102,12 @@ export default class CitiesAll extends Component {
             </div>
           </div>
         ) : (
-          <h1 className="text-center mt-4">
-            Oops.... Looks like city's list is empty.
-          </h1>
+          <div className="d-flex justify-content-center align-items-center">
+            <Empty
+              description="Oops.... Looks like city's list is empty."
+              style={{ fontSize: 60 }}
+            />
+          </div>
         )}
       </>
     );

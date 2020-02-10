@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
-import { Form, Icon, Input } from "antd";
+import { Form, Icon, Input, Select } from "antd";
+import countries from "../../coutries";
+import categories from "../../categories";
 
 export default class EditPlaces extends Component {
   render() {
     const {
       place,
       cityName,
-      country,
-      category,
       description,
       cover_image,
       image_name,
       onChange,
       handleImage,
+      handleOption,
+      handleMultiple,
       placeValue,
       cityValue,
       countryValue,
@@ -51,22 +53,51 @@ export default class EditPlaces extends Component {
             />
           </Form.Item>
           <Form.Item>
-            <Input
-              placeholder="Country *"
-              type="text"
-              name={country}
-              value={countryValue}
-              onChange={onChange}
-            />
+            {countryValue && (
+              <Select
+                placeholder="Select Country"
+                onChange={value => handleOption(value)}
+                defaultValue={[`${countryValue}`]}
+              >
+                {countries && countries.length !== 0 ? (
+                  countries.map((country, index) => (
+                    <Select.Option value={country.name} key={index}>
+                      {country.name}
+                    </Select.Option>
+                  ))
+                ) : (
+                  <Select.Option value="Nepal">Nepal</Select.Option>
+                )}
+              </Select>
+            )}
           </Form.Item>
           <Form.Item>
-            <Input
-              placeholder="Category *"
-              type="text"
-              name={category}
-              value={categoryValue}
-              onChange={onChange}
-            />
+            {categoryValue && (
+              <Select
+                mode="multiple"
+                placeholder="Select Category"
+                defaultValue={categoryValue.split(", ")}
+                onChange={value => {
+                  handleMultiple(value);
+                  console.log(value);
+                }}
+              >
+                <Select.OptGroup label="Adventurous">
+                  {categories.adventure.map((category, index) => (
+                    <Select.Option value={category} key={index}>
+                      {category}
+                    </Select.Option>
+                  ))}
+                </Select.OptGroup>
+                <Select.OptGroup label="Other">
+                  {categories.other.map((category, index) => (
+                    <Select.Option value={category} key={index}>
+                      {category}
+                    </Select.Option>
+                  ))}
+                </Select.OptGroup>
+              </Select>
+            )}
           </Form.Item>
           <Form.Item>
             <Input
@@ -111,7 +142,13 @@ export default class EditPlaces extends Component {
               fullWidth
               className="mt-3"
             >
-              {isFetching ? <Icon type="sync" spin /> : <span><i className="fa fa-edit"></i> &nbsp; Edit this place</span>}
+              {isFetching ? (
+                <Icon type="sync" spin />
+              ) : (
+                <span>
+                  <i className="fa fa-edit"></i> &nbsp; Edit this place
+                </span>
+              )}
             </Button>
           </Form.Item>
         </form>

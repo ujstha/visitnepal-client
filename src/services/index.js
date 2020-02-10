@@ -30,10 +30,12 @@ import {
   GetCities,
   GetCitiesImages,
   GetCityById,
+  GetCityByIdUid,
   GetImageByCityId,
   GetRatingByCityId,
   GetAvgRatingByCityId,
-  GetCommentByCityId
+  GetCommentByCityId,
+  GetWeather
 } from "./CitiesData";
 import {
   CommentFunction,
@@ -54,6 +56,13 @@ import {
   EditSlides,
   DeleteSlide
 } from "./SlidesFunction";
+import {
+  PagesFunction,
+  EditPages,
+  DeletePage,
+  GetPageById,
+  GetPages
+} from "./PagesFuntion";
 
 export {
   logOut,
@@ -65,6 +74,8 @@ export {
   ResetRole,
   CitiesFunction,
   AddCityImage,
+  GetWeather,
+  GetCityByIdUid,
   EditCities,
   EditCityImage,
   DeleteCity,
@@ -99,5 +110,10 @@ export {
   GetSlides,
   GetSlideById,
   EditSlides,
-  DeleteSlide
+  DeleteSlide,
+  PagesFunction,
+  GetPageById,
+  GetPages,
+  EditPages,
+  DeletePage
 };

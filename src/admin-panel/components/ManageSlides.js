@@ -20,7 +20,7 @@ export default class ManagePlaces extends Component {
                 </b>
               </h5>
             </a>
-            <table className="table table-striped">
+            <table className="table table-striped table-responsive-lg">
               <thead>
                 <tr>
                   <th scope="col">#</th>

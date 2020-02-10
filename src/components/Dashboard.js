@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import { Slide, Fade } from "react-reveal";
 import "../assets/css/userDashboard.css";
-import { Modal, Tabs, Empty, Button } from "antd";
+import { Modal, Tabs} from "antd";
 import UserPhotos from "./UserPhotos";
 import UserDetails from "./UserDetails";
 

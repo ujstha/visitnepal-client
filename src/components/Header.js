@@ -78,16 +78,6 @@ export default withRouter(
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/about">
-                    <Button
-                      color={path === "/about" ? "primary" : "inherit"}
-                      variant={path === "/about" ? "contained" : "text"}
-                    >
-                      About
-                    </Button>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
                   <NavLink href="/cities">
                     <Button
                       color={path === "/cities" ? "primary" : "inherit"}

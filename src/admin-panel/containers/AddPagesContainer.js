@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Helmet } from "react-helmet";
-import { Toast, CitiesFunction, AddCityImage } from "../../services";
+import { Toast, PagesFunction } from "../../services";
 import { Paper, CssBaseline } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import AddPlaces from "../components/AddPlaces";
+import AddPages from "../components/AddPages";
 
 const styles = theme => ({
   main: {
@@ -25,16 +25,12 @@ const styles = theme => ({
 });
 
 export default withStyles(styles)(
-  class AddPlacesContainer extends Component {
+  class AddPagesContainer extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        place: "",
-        city_name: "",
-        category: [],
-        country: "",
-        description: "",
-        cover_image: "",
+        title: "",
+        body: "",
         showAlert: false,
         message: "",
         alertColor: "",
@@ -46,58 +42,32 @@ export default withStyles(styles)(
         [e.target.name]: e.target.value
       });
     };
-    handleOption = value => {
-      this.setState({
-        country: value
-      });
-    };
-    handleImageChange = e => {
-      this.setState({
-        cover_image: e.target.files[0]
-      });
-    };
-    handleMultiple = value => {
-      this.setState({
-        category: value
-      });
-    };
     onSubmit = e => {
       e.preventDefault();
       this.setState({
         isFetching: true
       });
-      const { place, city_name, category, country, description } = this.state;
-      let citiesData = {
-        place: place,
-        city_name: city_name,
-        category: category,
-        country: country,
-        description: description
+      const { title, body } = this.state;
+      let pageData = {
+        title: title,
+        body: body
       };
 
-      CitiesFunction(citiesData).then(res => {
+      PagesFunction(pageData).then(res => {
         this.setState({
           isFetching: false,
           showAlert: true,
           alertColor: "success",
           message: res.data.message
         });
-        const formData = new FormData();
-        formData.append("cover_image", this.state.cover_image);
-        AddCityImage(res.data.city_id, formData).then(imageRes =>
-          console.log("Upload Success.")
-        );
+        document.location.href = "/manage/pages";
       });
     };
 
     render() {
       const {
-        place,
-        city_name,
-        country,
-        category,
-        cover_image,
-        description,
+        title,
+        body,
         showAlert,
         alertColor,
         message,
@@ -109,7 +79,7 @@ export default withStyles(styles)(
         <>
           <main className={classes.main}>
             <Helmet>
-              <title>Add New Places | VisitNepal</title>
+              <title>Add New Pages | VisitNepal</title>
             </Helmet>
             <CssBaseline />
             <Paper elevation={6} className={classes.paper}>
@@ -123,31 +93,13 @@ export default withStyles(styles)(
                 "add-place"
               )}
               <div className="add-places-container">
-                <AddPlaces
-                  place="place"
-                  cityName="city_name"
-                  country="country"
-                  category="category"
-                  description="description"
-                  cover_image="cover_image"
-                  image_name={
-                    cover_image ? cover_image.name : "Upload an Image...."
-                  }
-                  handleImage={this.handleImageChange}
-                  handleOption={this.handleOption}
-                  handleMultiple={this.handleMultiple}
+                <AddPages
+                  title="title"
+                  body="body"
                   onChange={this.onChange}
                   onSubmit={this.onSubmit}
                   isFetching={isFetching}
-                  btnDisabled={
-                    place === "" ||
-                    city_name === "" ||
-                    country === "" ||
-                    category === "" ||
-                    description === ""
-                      ? true
-                      : false
-                  }
+                  btnDisabled={title === "" || body === "" ? true : false}
                 />
               </div>
             </Paper>

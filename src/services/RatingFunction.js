@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export function GetRating(on_city) {
+export function GetRating() {
   return axios
     .get(
-      `${process.env.REACT_APP_BASEURL + "/ratings/with_city_id=" + on_city}`
+      `${process.env.REACT_APP_BASEURL + "/ratings"}`
     )
     .then(res => {
       return res;
@@ -21,7 +21,7 @@ export function RatingFunction(on_city, by_user, ratingData, location) {
       ratingData
     )
     .then(res => {
-      document.location = `${location}`;
+      document.location.href = `${location}`;
       return res;
     });
 }
@@ -37,7 +37,7 @@ export function RatingFunctionEdit(rating_id, by_user, ratingData, location) {
       ratingData
     )
     .then(res => {
-      document.location = `${location}`;
+      document.location.href = `${location}`;
       return res;
     });
 }

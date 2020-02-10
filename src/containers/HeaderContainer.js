@@ -6,17 +6,19 @@ export default class HeaderContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
+      username: null
     };
   }
   componentDidMount() {
-    GetUser().then(res => {
-      if (!res.data.status) {
-        this.setState({
-          username: res.data.user.username,
-        });
-      }
-    });
+    if (sessionStorage.token || localStorage.token) {
+      GetUser().then(res => {
+        if (!res.data.status) {
+          this.setState({
+            username: res.data.user.username
+          });
+        }
+      });
+    }
   }
   render() {
     const { username } = this.state;

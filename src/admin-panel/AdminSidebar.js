@@ -58,6 +58,13 @@ export default withRouter(
               <i className="fa fa-list-alt fa-fw"></i>  Slides
             </a>
             <a
+              href="/manage/pages"
+              className={`w3-bar-item w3-button w3-padding ${pathname ===
+                "/manage/pages" && "w3-blue"}`}
+            >
+              <i className="fa fa-file fa-fw"></i>  Pages
+            </a>
+            <a
               href="/settings"
               className={`w3-bar-item w3-button w3-padding ${pathname ===
                 "/settings" && "w3-blue"}`}

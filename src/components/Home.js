@@ -4,6 +4,7 @@ import { Loader } from "../services";
 import SliderContainer from "../containers/SliderContainer";
 import City from "./City";
 import "../assets/css/home.css";
+import MostViewedCity from "./MostViewedCity";
 
 const styles = {
   media: {
@@ -29,6 +30,10 @@ export default withStyles(styles)(
               <SliderContainer />
               <div className="container-fluid my-5">
                 <City
+                  className={classes.media}
+                  cities={cities}
+                />
+                <MostViewedCity
                   className={classes.media}
                   cities={cities}
                 />

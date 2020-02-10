@@ -5,7 +5,6 @@ import ErrorPage from "./components/ErrorPage";
 import Event from "./components/Event";
 import HomeContainer from "./containers/HomeContainer";
 import DashboardContainer from "./containers/DashboardContainer";
-import { GetUserRole } from "./services";
 import AdminDashboard from "./admin-panel/AdminDashboard";
 import CitiesAllContainer from "./containers/CitiesAllContainer";
 import CityDetails from "./components/CityDetails";
@@ -14,10 +13,8 @@ import EditPlacesContainer from "./admin-panel/containers/EditPlacesContainer";
 import EditSlidersContainer from "./admin-panel/containers/EditSlidersContainer";
 import AddSlidersContainer from "./admin-panel/containers/AddSlidersContainer";
 import AdminSettingsContainer from "./admin-panel/containers/AdminSettingsContainer";
-
-GetUserRole().then(res => {
-  return res;
-});
+import AddPagesContainer from "./admin-panel/containers/AddPagesContainer";
+import EditPagesContainer from "./admin-panel/containers/EditPagesContainer";
 
 export default (!sessionStorage.token && !localStorage.token) ||
 !localStorage.isAdmin ||
@@ -36,17 +33,28 @@ JSON.parse(localStorage.isAdmin) === null ? (
   JSON.parse(localStorage.isAdmin) ? (
   // user logged in and is admin
   <Switch>
-    <Route exact path="/"  component={() => <Redirect to="/dashboard" />}></Route>
+    <Route
+      exact
+      path="/"
+      component={() => <Redirect to="/dashboard" />}
+    ></Route>
     <Route exact path="/dashboard" component={AdminDashboard}></Route>
     <Route exact path="/settings" component={AdminSettingsContainer}></Route>
     <Route exact path="/manage/users" component={AdminDashboard}></Route>
     <Route exact path="/manage/places" component={AdminDashboard}></Route>
     <Route exact path="/manage/slides" component={AdminDashboard}></Route>
+    <Route exact path="/manage/pages" component={AdminDashboard}></Route>
     <Route exact path="/admin" component={Event}></Route>
     <Route exact path="/add/places" component={AddPlacesContainer}></Route>
     <Route exact path="/edit/place/:id" component={EditPlacesContainer}></Route>
+    <Route exact path="/add/pages" component={AddPagesContainer}></Route>
+    <Route exact path="/edit/page/:id" component={EditPagesContainer}></Route>
     <Route exact path="/add/sliders" component={AddSlidersContainer}></Route>
-    <Route exact path="/edit/slide/:id" component={EditSlidersContainer}></Route>
+    <Route
+      exact
+      path="/edit/slide/:id"
+      component={EditSlidersContainer}
+    ></Route>
     <Route exact path="/cities" component={CitiesAllContainer}></Route>
     <Route exact path="/city/:id" component={CityDetails}></Route>
     <Route exact path="*" component={ErrorPage}></Route>

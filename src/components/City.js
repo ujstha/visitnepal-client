@@ -8,8 +8,8 @@ export default class City extends Component {
     return (
       <>
         {cities.city.length !== 0 && (
-          <div className="mt-2 container-fluid">
-            <div className="text-center">
+          <div className="mt-2">
+            <div className="text-left">
               <Link to="/cities" className="clearfix home-header">
                 <span className="text-dark" style={{ fontSize: 28 }}>
                   Popular Destinations
@@ -19,9 +19,9 @@ export default class City extends Component {
             <div className="row">
               {cities.city.map((city, index) => {
                 return (
-                  index < 3 && (
+                  index < 4 && (
                     <div
-                      className="col-md-6 col-lg-4 col-xl-4 mt-3"
+                      className="col-md-6 col-lg-4 col-xl-3 mt-3"
                       key={index}
                     >
                       <Link to={`/city/${city.id}`}>
@@ -34,7 +34,7 @@ export default class City extends Component {
                                   component="img"
                                   alt={city.city_name}
                                   className={className}
-                                  height="250px"
+                                  height="200px"
                                   image={
                                     `${process.env.REACT_APP_IMAGEURL}/cover_images/` +
                                     image.cover_image
@@ -44,7 +44,7 @@ export default class City extends Component {
                                 />
                               ))}
                             <div className="card-overlay">
-                              <h4>{`${city.city_name}, ${city.country}`}</h4>
+                              <h4>{city.city_name}</h4>
                               <Button
                                 size="small"
                                 color="primary"

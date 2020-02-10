@@ -19,7 +19,7 @@ export default class ManageUsers extends Component {
                 </b>
               </h5>
             </a>
-            <table className="table table-striped">
+            <table className="table table-striped table-responsive-lg">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -36,28 +36,34 @@ export default class ManageUsers extends Component {
                       {index + 1}
                     </th>
                     <td style={{ width: 70 }}>
-                      {usersImages.map(
-                        userImage =>
-                          userImage.user_id === user.id && (
-                            <img
-                              key={userImage.id}
-                              alt={user.id}
-                              height="40"
-                              width="40"
-                              src={
-                                `${process.env.REACT_APP_IMAGEURL}/profile_images/` +
-                                userImage.profile_image
-                              }
-                            />
-                          )
-                      )}
+                      {usersImages
+                        .filter(userImage => userImage.user_id === user.id)
+                        .sort((itemA, itemB) =>
+                          itemA.created_at < itemB.created_at ? 1 : -1
+                        )
+                        .map(
+                          (userImage, index) =>
+                            index === 0 && (
+                              <img
+                                key={index}
+                                alt={user.id}
+                                height="40"
+                                width="40"
+                                src={
+                                  `${process.env.REACT_APP_IMAGEURL}/profile_images/` +
+                                  userImage.profile_image
+                                }
+                                className="rounded-circle"
+                              />
+                            )
+                        )}
                     </td>
                     <td>{user.username}</td>
                     <td>{user.email}</td>
                     <td>
                       <Select
                         defaultValue={user.isAdmin === 1 ? "Admin" : "User"}
-                        onChange={(value) => {
+                        onChange={value => {
                           this.onSubmit(user.id, value);
                         }}
                       >

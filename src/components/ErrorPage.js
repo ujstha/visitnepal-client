@@ -9,23 +9,10 @@ export default class ErrorPage extends Component {
         <Helmet>
           <title>Error Page | 404 Not Found</title>
         </Helmet>
-        <svg viewBox="0 0 960 300">
-          <symbol id="s-text">
-            <text textAnchor="middle" x="50%" y="80%">
-              404
-            </text>
-          </symbol>
-          <g className="g-ants">
-            <use xlinkHref="#s-text" className="text"></use>
-            <use xlinkHref="#s-text" className="text"></use>
-            <use xlinkHref="#s-text" className="text"></use>
-            <use xlinkHref="#s-text" className="text"></use>
-            <use xlinkHref="#s-text" className="text"></use>
-          </g>
-        </svg>
+        <a href="/"><h1 style={{fontFamily: `"Cookie", cursive`, fontStyle: "italic"}}>VisitNepal</h1></a>
         <div className="content">
-          <h1>Page Not Found</h1>
-          <a href="/">Back to Home</a>
+          <h1>Error 404 : Page Not Found</h1>
+          <a className="btn btn-primary btn-lg rounded-0" href="/"><i className="fa fa-arrow-left"></i> Back to Home</a>
         </div>
       </div>
     );

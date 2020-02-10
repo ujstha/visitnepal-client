@@ -31,7 +31,8 @@ export default withStyles(styles)(
       this.state = {
         place: "",
         city_name: "",
-        category: "",
+        category: [],
+        categoryValue: "",
         country: "",
         description: "",
         cover_image: "",
@@ -48,7 +49,7 @@ export default withStyles(styles)(
         this.setState({
           place: res.cityById.place,
           city_name: res.cityById.city_name,
-          category: res.cityById.category,
+          categoryValue: res.cityById.category,
           country: res.cityById.country,
           description: res.cityById.description,
           cover_image: res.cityImageByCityId.map(CI => CI.cover_image),
@@ -61,11 +62,20 @@ export default withStyles(styles)(
         [e.target.name]: e.target.value
       });
     };
+    handleOption = value => {
+      this.setState({
+        country: value
+      });
+    };
+    handleMultiple = value => {
+      this.setState({
+        category: value
+      });
+    };
     handleImageChange = e => {
       this.setState({
         cover_image: e.target.files[0]
       });
-      console.log(this.state.cover_image);
     };
     onSubmit = e => {
       e.preventDefault();
@@ -107,6 +117,7 @@ export default withStyles(styles)(
         city_name,
         country,
         category,
+        categoryValue,
         cover_image,
         description,
         showAlert,
@@ -141,8 +152,7 @@ export default withStyles(styles)(
                   cityValue={city_name}
                   country="country"
                   countryValue={country}
-                  category="category"
-                  categoryValue={category}
+                  categoryValue={categoryValue}
                   description="description"
                   descriptionValue={description}
                   cover_image="cover_image"
@@ -153,6 +163,8 @@ export default withStyles(styles)(
                   }
                   imageValue={cover_image}
                   handleImage={this.handleImageChange}
+                  handleMultiple={this.handleMultiple}
+                  handleOption={this.handleOption}
                   onChange={this.onChange}
                   onSubmit={this.onSubmit}
                   isFetching={isFetching}

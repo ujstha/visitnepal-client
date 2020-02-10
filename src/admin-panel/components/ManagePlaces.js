@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
-import { Icon } from "antd";
+import { Icon, Tag } from "antd";
 import { DeleteCity, DeleteImage, DeleteAllComment } from "../../services";
 
 export default class ManagePlaces extends Component {
@@ -17,7 +17,7 @@ export default class ManagePlaces extends Component {
                 </b>
               </h5>
             </a>
-            <table className="table table-striped">
+            <table className="table table-striped table-responsive-lg">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -45,8 +45,8 @@ export default class ManagePlaces extends Component {
                             <img
                               key={cityImage.id}
                               alt={city.place}
-                              height="40"
-                              width="60"
+                              height="50"
+                              width="70"
                               src={
                                 `${process.env.REACT_APP_IMAGEURL}/cover_images/` +
                                 cityImage.cover_image
@@ -57,46 +57,58 @@ export default class ManagePlaces extends Component {
                     </td>
                     <td>{city.place}</td>
                     <td>{city.city_name}</td>
-                    <td>{city.category}</td>
+                    <td>
+                      {city.category.split(", ").map((category, index) => (
+                        <Tag key={index} className="mt-1">
+                          {category}
+                        </Tag>
+                      ))}
+                    </td>
                     <td className="manage-description">{city.description}</td>
                     <td>{city.visit_count}</td>
                     <td>{city.rating_count}</td>
                     <td>{city.comment_count}</td>
                     <td className="actions">
-                      <Button
-                        variant="contained"
-                        color="default"
-                        onClick={() =>
-                          (document.location.href = `/city/${city.id}`)
-                        }
-                      >
-                        <Icon type="eye" />
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() =>
-                          (document.location.href = `/edit/place/${city.id}`)
-                        }
-                      >
-                        <Icon type="edit" />
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => {
-                          DeleteAllComment(city.id);
-                          DeleteImage(
-                            citiesImages.map(
-                              cityImage =>
-                                cityImage.city_id === city.id && cityImage.id
-                            )
-                          );
-                          DeleteCity(city.id, "/manage/places");
-                        }}
-                      >
-                        <Icon type="delete" />
-                      </Button>
+                      <span className="d-block">
+                        <Button
+                          variant="contained"
+                          color="default"
+                          onClick={() =>
+                            (document.location.href = `/city/${city.id}`)
+                          }
+                        >
+                          <Icon type="eye" />
+                        </Button>
+                      </span>
+                      <span className="d-block">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() =>
+                            (document.location.href = `/edit/place/${city.id}`)
+                          }
+                        >
+                          <Icon type="edit" />
+                        </Button>
+                      </span>
+                      <span className="d-block">
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => {
+                            DeleteAllComment(city.id);
+                            DeleteImage(
+                              citiesImages.map(
+                                cityImage =>
+                                  cityImage.city_id === city.id && cityImage.id
+                              )
+                            );
+                            DeleteCity(city.id, "/manage/places");
+                          }}
+                        >
+                          <Icon type="delete" />
+                        </Button>
+                      </span>
                     </td>
                   </tr>
                 ))}

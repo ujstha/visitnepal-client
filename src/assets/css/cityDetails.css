@@ -108,6 +108,24 @@ img.user-image-comment {
   cursor: pointer;
   color: red;
 }
+.deg-cursor {
+  cursor: pointer;
+  color: grey;
+}
+.forecast {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  overflow-x: auto;
+  text-align: center;
+}
+.filtered-forecast {
+  max-width: auto;
+  margin-right: 10px;
+  border-radius: 3px;
+  background-color: rgba(0,0,0,.4);
+  color: whitesmoke;
+}
 @media screen and (max-width: 1024px) {
   .city-bg {
     height: 32rem;

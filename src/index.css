@@ -30,6 +30,8 @@ code {
 .MuiButton-root,
 .MuiExpansionPanel-root,
 .MuiPaper-root,
+.ant-select-selection.ant-select-selection--single,
+.ant-select-selection--multiple,
 .alert {
   border-radius: 0 !important;
 }

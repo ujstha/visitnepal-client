@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Empty, Button } from "antd";
+import { Tabs } from "antd";
 
 export default class UserDetails extends Component {
   render() {

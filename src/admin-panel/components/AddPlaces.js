@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
-import { Form, Icon, Input } from "antd";
+import { Form, Icon, Input, Select } from "antd";
+import countries from "../../coutries";
+import categories from "../../categories";
 
 export default class AddPlaces extends Component {
   render() {
     const {
       place,
       cityName,
-      country,
-      category,
       description,
       cover_image,
       image_name,
       onChange,
       handleImage,
+      handleOption,
+      handleMultiple,
       onSubmit,
       btnDisabled,
       isFetching
@@ -43,20 +45,42 @@ export default class AddPlaces extends Component {
             />
           </Form.Item>
           <Form.Item>
-            <Input
-              placeholder="Country *"
-              type="text"
-              name={country}
-              onChange={onChange}
-            />
+            <Select
+              placeholder="Select Country"
+              onChange={value => handleOption(value)}
+            >
+              {countries && countries.length !== 0 ? (
+                countries.map((country, index) => (
+                  <Select.Option value={country.name} key={index}>
+                    {country.name}
+                  </Select.Option>
+                ))
+              ) : (
+                <Select.Option value="Nepal">Nepal</Select.Option>
+              )}
+            </Select>
           </Form.Item>
           <Form.Item>
-            <Input
-              placeholder="Category *"
-              type="text"
-              name={category}
-              onChange={onChange}
-            />
+            <Select
+              mode="multiple"
+              placeholder="Select Category"
+              onChange={value => handleMultiple(value)}
+            >
+              <Select.OptGroup label="Adventurous">
+                {categories.adventure.map((category, index) => (
+                  <Select.Option value={category} key={index}>
+                    {category}
+                  </Select.Option>
+                ))}
+              </Select.OptGroup>
+              <Select.OptGroup label="Other">
+                {categories.other.map((category, index) => (
+                  <Select.Option value={category} key={index}>
+                    {category}
+                  </Select.Option>
+                ))}
+              </Select.OptGroup>
+            </Select>
           </Form.Item>
           <Form.Item>
             <Input.TextArea
@@ -69,7 +93,8 @@ export default class AddPlaces extends Component {
           </Form.Item>
           <label htmlFor="file-upload" className="file-upload-button mt-2 mb-0">
             <div className="file-name">
-              <i className="fas fa-upload fa-fw text-dark"></i> &nbsp; {image_name}
+              <i className="fas fa-upload fa-fw text-dark"></i> &nbsp;{" "}
+              {image_name}
             </div>
           </label>
           <input
@@ -89,7 +114,13 @@ export default class AddPlaces extends Component {
               fullWidth
               className="mt-3"
             >
-              {isFetching ? <Icon type="sync" spin /> : <span><i className="fa fa-save"></i> &nbsp; Save this place</span>}
+              {isFetching ? (
+                <Icon type="sync" spin />
+              ) : (
+                <span>
+                  <i className="fa fa-save"></i> &nbsp; Save this place
+                </span>
+              )}
             </Button>
           </Form.Item>
         </form>

@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Loader, GetCities, GetSlides, GetAllUsers } from "../services";
+import {
+  Loader,
+  GetCities,
+  GetSlides,
+  GetAllUsers,
+  GetPages
+} from "../services";
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
 import axios from "axios";
@@ -9,6 +15,7 @@ import CountedData from "./components/CountedData";
 import ManagePlaces from "./components/ManagePlaces";
 import ManageSlides from "./components/ManageSlides";
 import ManageUsers from "./components/ManageUsers";
+import ManagePages from "./components/ManagePages";
 
 export default class AdminDashboard extends Component {
   constructor(props) {
@@ -20,7 +27,8 @@ export default class AdminDashboard extends Component {
       usersImages: [],
       cities: [],
       citiesImages: [],
-      slides: []
+      slides: [],
+      pages: []
     };
   }
   componentDidMount() {
@@ -47,6 +55,11 @@ export default class AdminDashboard extends Component {
         slides: res
       });
     });
+    GetPages().then(res => {
+      this.setState({
+        pages: res
+      });
+    });
   }
   toggleNav = () => {
     this.setState({
@@ -62,6 +75,7 @@ export default class AdminDashboard extends Component {
       cities,
       citiesImages,
       slides,
+      pages,
       count
     } = this.state;
     const { pathname } = this.props.location;
@@ -107,53 +121,9 @@ export default class AdminDashboard extends Component {
               {(pathname === "/manage/slides" || pathname === "/dashboard") && (
                 <ManageSlides slides={slides} />
               )}
-
-              <br />
-
-              <footer className="w3-container w3-padding-16 w3-light-grey">
-                <div className="row">
-                  <div className="col-md-8 col-sm-6 col-xs-12">
-                    <p className="copyright-text">
-                      Copyright &copy; 2019. All Rights Reserved.
-                    </p>
-                  </div>
-
-                  <div className="col-md-4 col-sm-6 col-xs-12">
-                    <ul className="social-icons">
-                      <li>
-                        <a
-                          className="facebook"
-                          href="https://www.facebook.com"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <i className="fab fa-facebook-f"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          className="twitter"
-                          href="https://www.twitter.com"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <i className="fab fa-twitter"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          className="linkedin"
-                          href="https://www.linkedin.com"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <i className="fab fa-linkedin"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </footer>
+              {(pathname === "/manage/pages" || pathname === "/dashboard") && (
+                <ManagePages pages={pages} />
+              )}
             </div>
           </div>
         )}

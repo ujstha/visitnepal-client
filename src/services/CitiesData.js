@@ -20,6 +20,12 @@ export function GetCityById(id) {
   });
 }
 
+export function GetCityByIdUid(id, uid) {
+  return axios.get(`${API}/cities/${id}/${uid}`).then(city => {
+    return city.data;
+  });
+}
+
 export function GetImageByCityId(id) {
   return axios.get(`${API}/city/image/with_city=${id}`).then(image => {
     return image.data;
@@ -41,3 +47,10 @@ export function GetCommentByCityId(id) {
     return comment.data;
   });
 }
+
+export function GetWeather(lat, lon, type) {
+  return axios.get(`http://api.openweathermap.org/data/2.5/${type}?lat=${lat}&lon=${lon}&APPID=${process.env.REACT_APP_WEATHER_API}`).then(weather => {
+    return weather;
+  });
+}
+

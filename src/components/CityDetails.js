@@ -10,15 +10,16 @@ import {
   RatingFunction,
   RatingFunctionEdit,
   DeleteComment,
-  GetRating,
-  GetRatingByCityId
+  GetCityByIdUid
 } from "../services";
 import "../assets/css/cityDetails.css";
 import { Paper, Button } from "@material-ui/core";
-import { Form, Input, Tooltip, Popover, Modal } from "antd";
+import { Form, Input, Tooltip, Popover, Modal, Tag } from "antd";
 import moment from "moment";
 import CommentForm from "./CommentForm";
 import Ratings from "./Ratings";
+import * as opencage from "opencage-api-client";
+import Weather from "./Weather";
 
 export default class CityDetails extends Component {
   constructor(props) {
@@ -26,8 +27,7 @@ export default class CityDetails extends Component {
     this.state = {
       cities: {},
       comments: [],
-      ratings: [],
-      rated: "",
+      ratings: {},
       isLoading: true,
       comment: "",
       cmntError: "",
@@ -39,6 +39,7 @@ export default class CityDetails extends Component {
       editComment: {},
       deleteComment: {},
       showMoreCmnt: false,
+      map: null,
       ID: this.props.match.params.id
     };
   }
@@ -51,11 +52,9 @@ export default class CityDetails extends Component {
         comments: res.commentByCityId,
         isLoading: false
       });
-      console.log(res);
+      this.getMap(`${res.cityById.city_name}, ${res.cityById.country}`);
     });
-    GetRating(this.props.match.params.id).then(res =>
-      this.setState({ ratings: res.data })
-    );
+
     GetAllUsers().then(res => {
       this.setState({
         allUsers: res.data.users,
@@ -66,10 +65,13 @@ export default class CityDetails extends Component {
     if (sessionStorage.token || localStorage.token) {
       GetUser().then(res => {
         this.setState({
-          userID: res.data.user.id,
-          rated: res.data.user.ratedCity
+          userID: res.data.user.id
         });
-        console.log(res);
+        GetCityByIdUid(this.props.match.params.id, 3).then(res => {
+          this.setState({
+            ratings: res.rate_uid[0]
+          });
+        });
       });
     }
   }
@@ -109,13 +111,6 @@ export default class CityDetails extends Component {
     );
   };
 
-  getRating = () => {
-    GetRatingByCityId(this.state.ID).then(res => {
-      this.setState({
-        ratings: res
-      });
-    });
-  };
   submitRating = value => {
     const { ID, userID } = this.state;
     const ratingData = {
@@ -161,12 +156,18 @@ export default class CityDetails extends Component {
       }
     }));
   };
+  getMap = query => {
+    opencage
+      .geocode({ key: process.env.REACT_APP_MAP_API, q: query })
+      .then(map => {
+        this.setState({ map: map.results[0].geometry });
+      });
+  };
 
   render() {
     const {
       ID,
       userID,
-      rated,
       cities,
       comments,
       isLoading,
@@ -180,7 +181,8 @@ export default class CityDetails extends Component {
       showPopover,
       ratings,
       showMoreCmnt,
-      deleteComment
+      deleteComment,
+      map
     } = this.state;
 
     const auth = localStorage.token || sessionStorage.token;
@@ -198,6 +200,29 @@ export default class CityDetails extends Component {
                 <Helmet>
                   <title>{`${cities.cityById.city_name} - Everything you need to know about ${cities.cityById.city_name} | VisitNepal`}</title>
                 </Helmet>
+                <div className="MuiPaper-root text-left bg-dark text-light p-2">
+                  <div
+                    className="container-fluid clearfix"
+                    style={{ fontSize: 18 }}
+                  >
+                    <span className="float-left">
+                      {cities.cityById.city_name} Travel
+                    </span>
+                    <span className="float-right" style={{ fontSize: 15 }}>
+                      <a className="text-light" href="/">
+                        Home
+                      </a>{" "}
+                      /{" "}
+                      <a className="text-light" href="/cities">
+                        Cities
+                      </a>{" "}
+                      /{" "}
+                      <span className="text-warning">
+                        {cities.cityById.city_name}
+                      </span>
+                    </span>
+                  </div>
+                </div>
                 <div
                   className="city-bg"
                   style={{
@@ -240,9 +265,9 @@ export default class CityDetails extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="container-fluid my-3">
+                <div className="container my-3">
                   <Paper
-                    elevation={2}
+                    elevation={1}
                     style={{
                       textOverflow: "ellipsis",
                       overflow: "hidden",
@@ -250,7 +275,14 @@ export default class CityDetails extends Component {
                     }}
                     className="p-2 px-4"
                   >
-                    <h3 className="my-3">Overview</h3>
+                    <span className="d-block my-3">
+                      <h3>Overview</h3>
+                      {cities.cityById.category
+                        .split(", ")
+                        .map((category, index) => (
+                          <Tag key={index}>{category}</Tag>
+                        ))}
+                    </span>
                     <div className="row mb-3">
                       <div className="col-md-12">
                         <p className="cities-description">
@@ -259,58 +291,10 @@ export default class CityDetails extends Component {
                       </div>
                     </div>
                   </Paper>
-                  {cities.categoryByCityId &&
-                    cities.categoryByCityId.length !== 0 && (
-                      <>
-                        <h3>
-                          Things to do in{" "}
-                          <span className="text-capitalize">
-                            {cities.cityById.city_name}
-                          </span>
-                        </h3>
-                        <div className="row">
-                          {cities.categoryByCityId.map((category, index) => {
-                            return (
-                              <div
-                                className="col-md-12 col-lg-6 col-xl-6 category-data"
-                                key={index}
-                              >
-                                <Paper elevation={5} className="my-2">
-                                  <div className="row">
-                                    <div className="col-md-3 col-lg-4 col-xl-3 category-image-container">
-                                      <div
-                                        className="category-image"
-                                        style={{
-                                          backgroundImage: `url(${process.env
-                                            .REACT_APP_IMAGEURL +
-                                            "/category_images/" +
-                                            category.category_image})`
-                                        }}
-                                      ></div>
-                                    </div>
-                                    <div className="col-md-9 col-lg-8 col-xl-9 my-3 category-details">
-                                      <h4
-                                        className="text-uppercase"
-                                        style={{ fontFamily: "Montserrat" }}
-                                      >
-                                        {category.category_name}
-                                      </h4>
-                                      <p className="category-detail">
-                                        {category.details}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </Paper>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </>
-                    )}
                   <div className="row mb-3">
-                    <div className="col-md-8 mt-3" id="reviews">
+                    <div className="col-lg-7 col-xl-8 mt-3" id="reviews">
                       <Paper
-                        elevation={2}
+                        elevation={1}
                         style={{
                           textOverflow: "ellipsis",
                           overflow: "hidden",
@@ -337,17 +321,24 @@ export default class CityDetails extends Component {
                                         userImage =>
                                           userImage.user_id === comment.user_id
                                       )
+                                      .sort((itemA, itemB) =>
+                                        itemA.created_at < itemB.created_at
+                                          ? 1
+                                          : -1
+                                      )
                                       .map((image, index) => {
                                         return (
-                                          <img
-                                            className="user-image-comment"
-                                            src={
-                                              `${process.env.REACT_APP_IMAGEURL}/profile_images/` +
-                                              image.profile_image
-                                            }
-                                            alt={image.profile_image}
-                                            key={index}
-                                          />
+                                          index === 0 && (
+                                            <img
+                                              className="user-image-comment"
+                                              src={
+                                                `${process.env.REACT_APP_IMAGEURL}/profile_images/` +
+                                                image.profile_image
+                                              }
+                                              alt={image.profile_image}
+                                              key={index}
+                                            />
+                                          )
                                         );
                                       })}
                                     <span className="ml-3">
@@ -593,15 +584,31 @@ export default class CityDetails extends Component {
                         </div>
                       </Paper>
                     </div>
-                    <div className="col-md-4 mt-3">
+                    <div className="col-lg-5 col-xl-4 mt-3">
                       <Ratings
-                        rated={rated}
                         ratings={ratings}
                         cities={cities}
-                        userID={userID}
                         onChange={this.submitRating}
                         onEditChange={this.editRating}
                       />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12 map">
+                      {map && (
+                        <iframe
+                          title="map"
+                          src={`https://maps.google.com/maps?q=${map.lat},${map.lng}&z=10&output=embed`}
+                          width="100%"
+                          height="300px"
+                          frameBorder="0"
+                          style={{ border: 0 }}
+                          allowFullScreen
+                        ></iframe>
+                      )}
+                    </div>
+                    <div className="col-md-12 weather mt-3">
+                      {map && <Weather lat={map.lat} lon={map.lng} />}
                     </div>
                   </div>
                 </div>
