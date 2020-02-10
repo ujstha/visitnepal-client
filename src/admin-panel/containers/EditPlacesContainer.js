@@ -50,6 +50,7 @@ export default withStyles(styles)(
           place: res.cityById.place,
           city_name: res.cityById.city_name,
           categoryValue: res.cityById.category,
+          category: res.cityById.category.split(", "),
           country: res.cityById.country,
           description: res.cityById.description,
           cover_image: res.cityImageByCityId.map(CI => CI.cover_image),
@@ -67,9 +68,9 @@ export default withStyles(styles)(
         country: value
       });
     };
-    handleMultiple = value => {
+    handleMultiple = (value) => {
       this.setState({
-        category: value
+        category: value 
       });
     };
     handleImageChange = e => {

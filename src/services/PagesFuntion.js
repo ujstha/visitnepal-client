@@ -8,8 +8,14 @@ export function GetPages() {
   });
 }
 
-export function GetPageById(id) {
-    return axios.get(`${API}/page/${id}`).then(page => {
+export function GetPageByTitle(title) {
+    return axios.get(`${API}/page/${title}`).then(page => {
+      return page.data;
+    });
+  }
+
+  export function GetPageById(id) {
+    return axios.get(`${API}/page/pageid/${id}`).then(page => {
       return page.data;
     });
   }

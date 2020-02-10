@@ -48,6 +48,7 @@ export default class AddPlaces extends Component {
             <Select
               placeholder="Select Country"
               onChange={value => handleOption(value)}
+              defaultValue="Nepal"
             >
               {countries && countries.length !== 0 ? (
                 countries.map((country, index) => (

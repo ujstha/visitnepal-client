@@ -15,6 +15,8 @@ import AddSlidersContainer from "./admin-panel/containers/AddSlidersContainer";
 import AdminSettingsContainer from "./admin-panel/containers/AdminSettingsContainer";
 import AddPagesContainer from "./admin-panel/containers/AddPagesContainer";
 import EditPagesContainer from "./admin-panel/containers/EditPagesContainer";
+import CityByCategoryContainer from "./containers/CityByCategoryContainer";
+import PagesContainer from "./containers/PagesContainer";
 
 export default (!sessionStorage.token && !localStorage.token) ||
 !localStorage.isAdmin ||
@@ -27,6 +29,8 @@ JSON.parse(localStorage.isAdmin) === null ? (
     <Route exact path="/dashboard" component={AdminDashboard}></Route>
     <Route exact path="/cities" component={CitiesAllContainer}></Route>
     <Route exact path="/city/:id" component={CityDetails}></Route>
+    <Route exact path="/city/category/:category" component={CityByCategoryContainer}></Route>
+    <Route exact path="/page/:title" component={PagesContainer}></Route>
     <Route exact path="*" component={ErrorPage}></Route>
   </Switch>
 ) : (sessionStorage.token || localStorage.token) &&
@@ -57,6 +61,8 @@ JSON.parse(localStorage.isAdmin) === null ? (
     ></Route>
     <Route exact path="/cities" component={CitiesAllContainer}></Route>
     <Route exact path="/city/:id" component={CityDetails}></Route>
+    <Route exact path="/city/category/:category" component={CityByCategoryContainer}></Route>
+    <Route exact path="/page/:title" component={PagesContainer}></Route>
     <Route exact path="*" component={ErrorPage}></Route>
   </Switch>
 ) : (sessionStorage.token || localStorage.token) &&
@@ -67,6 +73,8 @@ JSON.parse(localStorage.isAdmin) === null ? (
     <Route exact path="/dashboard" component={DashboardContainer}></Route>
     <Route exact path="/cities" component={CitiesAllContainer}></Route>
     <Route exact path="/city/:id" component={CityDetails}></Route>
+    <Route exact path="/city/category/:category" component={CityByCategoryContainer}></Route>
+    <Route exact path="/page/:title" component={PagesContainer}></Route>
     <Route exact path="*" component={ErrorPage}></Route>
   </Switch>
 ) : (

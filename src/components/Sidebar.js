@@ -23,6 +23,18 @@ export default withRouter(
           </li>
           <li>
             <a
+              href="/page/terms"
+              className={`menu-item ${
+                path === "/page/terms"
+                  ? "MuiButton-containedPrimary text-light"
+                  : ""
+              }`}
+            >
+              Terms
+            </a>
+          </li>
+          <li>
+            <a
               href="/cities"
               className={`menu-item ${
                 path === "/cities"

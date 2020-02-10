@@ -60,6 +60,7 @@ import {
   PagesFunction,
   EditPages,
   DeletePage,
+  GetPageByTitle,
   GetPageById,
   GetPages
 } from "./PagesFuntion";
@@ -112,6 +113,7 @@ export {
   EditSlides,
   DeleteSlide,
   PagesFunction,
+  GetPageByTitle,
   GetPageById,
   GetPages,
   EditPages,

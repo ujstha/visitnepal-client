@@ -41,7 +41,7 @@ export default class ManagePages extends Component {
                         variant="contained"
                         color="default"
                         onClick={() =>
-                          (document.location.href = `/page/${page.id}`)
+                          (document.location.href = `/page/${page.title}`)
                         }
                       >
                         <Icon type="eye" />

@@ -3,7 +3,7 @@
   width: 100%;
   position: relative;
   background-size: cover;
-  background-position: bottom;
+  background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -118,6 +118,10 @@ img.user-image-comment {
   flex-direction: row;
   overflow-x: auto;
   text-align: center;
+  -ms-overflow-style: none;
+}
+.forecast::-webkit-scrollbar {
+  display: none;
 }
 .filtered-forecast {
   max-width: auto;

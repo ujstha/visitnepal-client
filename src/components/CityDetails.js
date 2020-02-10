@@ -67,7 +67,7 @@ export default class CityDetails extends Component {
         this.setState({
           userID: res.data.user.id
         });
-        GetCityByIdUid(this.props.match.params.id, 3).then(res => {
+        GetCityByIdUid(this.props.match.params.id, res.data.user.id).then(res => {
           this.setState({
             ratings: res.rate_uid[0]
           });
@@ -280,7 +280,7 @@ export default class CityDetails extends Component {
                       {cities.cityById.category
                         .split(", ")
                         .map((category, index) => (
-                          <Tag key={index}>{category}</Tag>
+                          <Tag key={index}><a href={`/city/category/${category}`}>{category}</a></Tag>
                         ))}
                     </span>
                     <div className="row mb-3">

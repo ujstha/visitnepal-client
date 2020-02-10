@@ -60,7 +60,7 @@ export default class ManagePlaces extends Component {
                     <td>
                       {city.category.split(", ").map((category, index) => (
                         <Tag key={index} className="mt-1">
-                          {category}
+                          <a href={`/city/category/${category}`}>{category}</a>
                         </Tag>
                       ))}
                     </td>

@@ -12,13 +12,20 @@ export default {
     "Mountain Photography",
     "Mountain Flights",
     "Mountain Biking",
-    "Boating and Kayaking"
+    "Boating and Kayaking",
+    "Boating"
   ],
   other: [
     "Monastery Visit",
     "Sightseeing",
     "Village Tour",
     "National Parks",
-    "Religious Visit"
+    "Religious Visit",
+    "Temple",
+    "Historical",
+    "Lake",
+    "Museum",
+    "Camping",
+    "Research"
   ]
 };

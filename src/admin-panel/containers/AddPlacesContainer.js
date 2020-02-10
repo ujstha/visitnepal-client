@@ -32,7 +32,7 @@ export default withStyles(styles)(
         place: "",
         city_name: "",
         category: [],
-        country: "",
+        country: "Nepal",
         description: "",
         cover_image: "",
         showAlert: false,
@@ -84,8 +84,8 @@ export default withStyles(styles)(
         });
         const formData = new FormData();
         formData.append("cover_image", this.state.cover_image);
-        AddCityImage(res.data.city_id, formData).then(imageRes =>
-          console.log("Upload Success.")
+        AddCityImage(res.data.city_id, formData).then(
+          imageRes => (document.location.href = "/manage/places")
         );
       });
     };

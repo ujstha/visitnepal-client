@@ -79,7 +79,6 @@ export default class EditPlaces extends Component {
                 defaultValue={categoryValue.split(", ")}
                 onChange={value => {
                   handleMultiple(value);
-                  console.log(value);
                 }}
               >
                 <Select.OptGroup label="Adventurous">
@@ -100,8 +99,9 @@ export default class EditPlaces extends Component {
             )}
           </Form.Item>
           <Form.Item>
-            <Input
+            <Input.TextArea
               placeholder="Description *"
+              rows={4}
               type="text"
               name={description}
               value={descriptionValue}

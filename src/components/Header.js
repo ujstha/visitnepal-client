@@ -68,10 +68,10 @@ export default withRouter(
             <Collapse navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="/terms">
+                  <NavLink href="/page/terms">
                     <Button
-                      color={path === "/terms" ? "primary" : "inherit"}
-                      variant={path === "/terms" ? "contained" : "text"}
+                      color={path === "/page/terms" ? "primary" : "inherit"}
+                      variant={path === "/page/terms" ? "contained" : "text"}
                     >
                       Terms
                     </Button>

@@ -56,13 +56,13 @@ const card = (cityImages, city, className, height) => (
   </Card>
 );
 
-export default class CitiesAll extends Component {
+export default class CityByCategory extends Component {
   render() {
-    const { cities, cityImages, className, isLoading } = this.props;
+    const { cities, cityImages, className, category, isLoading } = this.props;
     return (
       <>
         <Helmet>
-          <title>Cities - Destinations to visit in Nepal | VisitNepal</title>
+          <title>{`City with ${category} category - Destinations to visit in Nepal | VisitNepal`}</title>
         </Helmet>
         {isLoading ? (
           CircularLoader(isLoading)
@@ -73,9 +73,7 @@ export default class CitiesAll extends Component {
                 className="container-fluid clearfix"
                 style={{ fontSize: 18 }}
               >
-                <span className="float-left">
-                  Destinations in Nepal
-                </span>
+                <span className="float-left">Category : {category}</span>
                 <span className="float-right" style={{ fontSize: 15 }}>
                   <a className="text-light" href="/">
                     Home
@@ -86,26 +84,29 @@ export default class CitiesAll extends Component {
             </div>
             <div className="container-fluid">
               <div className="row">
-                {cities.map((city, index) => {
-                  return (
-                    <div
-                      className="col-md-6 col-sm-6 col-lg-4 col-xl-4 mt-4"
-                      key={index}
-                    >
-                      <Link to={`/city/${city.id}`}>
-                        {card(cityImages, city, className, "220px")}
-                      </Link>
-                    </div>
-                  );
-                })}
+                {cities.map((city, index) => 
+                  city.category.split(", ").map(
+                    cat =>
+                      cat === category && (
+                        <div
+                          className="col-md-6 col-sm-6 col-lg-4 col-xl-4 mt-4"
+                          key={index}
+                        >
+                          <Link to={`/city/${city.id}`}>
+                            {card(cityImages, city, className, "220px")}
+                          </Link>
+                        </div>
+                      )
+                  )
+                )}
               </div>
             </div>
           </div>
         ) : (
           <div className="d-flex justify-content-center mt-5 align-items-center">
             <Empty
-              description="Oops.... Looks like city's list is empty."
-              style={{ fontSize: 60 }}
+              description={`No cities found with ${category} category.`}
+              style={{ fontSize: 40 }}
             />
           </div>
         )}
